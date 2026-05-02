@@ -1,226 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Abuzar Battery Service</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#dfe9f3,#ffffff);
-}
-
-/* HEADER */
-.header{
-display:flex;
-justify-content:space-between;
-padding:15px;
-background:white;
-box-shadow:0 2px 10px #ccc;
-}
-
-.logo{font-weight:bold;color:#0b3d91;cursor:pointer;}
-
-.btn{
-background:#0b3d91;color:white;padding:8px 15px;
-border:none;border-radius:20px;cursor:pointer;
-}
-
-/* ANIMATION LINE */
-.slider{
-overflow:hidden;background:white;padding:10px;
-}
-.track{
-display:flex;
-animation:move 12s linear infinite;
-}
-.slide{
-min-width:150px;
-text-align:center;
-font-weight:bold;
-color:#0b3d91;
-}
-@keyframes move{
-0%{transform:translateX(-100%);}
-100%{transform:translateX(100%);}
-}
-
-/* VIEW SWITCH */
-.view-btns{text-align:center;margin:10px;}
-
-/* PRODUCTS */
-.grid,.list{display:flex;flex-wrap:wrap;justify-content:center;}
-
-.card{
-background:white;
-width:200px;
-margin:10px;
-padding:10px;
-border-radius:15px;
-box-shadow:0 0 15px #ddd;
-transition:0.4s;
-cursor:pointer;
-}
-.card:hover{
-transform:translateY(-10px) scale(1.05);
-}
-.card img{width:100%;}
-
-/* LIST VIEW */
-.list .card{
-width:90%;
-display:flex;
-align-items:center;
-}
-.list .card img{width:120px;margin-right:10px;}
-
-/* CART BOX */
-.cart-box{
-position:fixed;
-top:0;
-right:-300px;
-width:300px;
-height:100%;
-background:white;
-box-shadow:-5px 0 10px #ccc;
-padding:10px;
-transition:0.4s;
-overflow:auto;
-}
-.cart-box.active{right:0;}
-
-/* DETAIL */
-.detail{
-display:none;
-padding:20px;
-text-align:center;
-}
-
-</style>
-</head>
-
-<body>
+<!-- HEADER -->
+<div class="topbar">
+📍 Gulshan-e-Ravi Lahore | 📞 +92 301 4681059
+</div>
 
 <div class="header">
 <div class="logo" onclick="goHome()">Abuzar Battery 🔋</div>
 <button class="btn" onclick="toggleCart()">🛒 Cart</button>
 </div>
 
-<!-- ANIMATION -->
-<div class="slider">
-<div class="track">
-<div class="slide">AGS</div>
-<div class="slide">OSAKA</div>
-<div class="slide">PHOENIX</div>
-<div class="slide">VOLTA</div>
-<div class="slide">EXIDE</div>
-<div class="slide">UNIQUE</div>
-</div>
-</div>
+<!-- CATEGORY SECTION (WAPAS ADD) -->
+<div class="products">
+<h2 style="text-align:center;">Battery Categories</h2>
 
-<!-- VIEW BUTTON -->
-<div class="view-btns">
-<button class="btn" onclick="setGrid()">Grid View</button>
-<button class="btn" onclick="setList()">List View</button>
+<div class="grid">
+
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>UPS Battery</h3>
 </div>
 
-<!-- PRODUCTS -->
-<div id="products" class="grid"></div>
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>Car Battery</h3>
+</div>
 
-<!-- DETAIL PAGE -->
-<div id="detail" class="detail"></div>
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>Solar Battery</h3>
+</div>
 
-<!-- CART -->
-<div id="cart" class="cart-box"></div>
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>Dry Battery</h3>
+</div>
 
-<script>
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>Deep Cycle Battery</h3>
+</div>
 
-let products=[
-"AGS GR-65","OSAKA NS60","PHOENIX XP-70",
-"VOLTA T-125","EXIDE N55","UNIQUE UGS"
-];
-
-let cart=[];
-
-function loadProducts(){
-let box=document.getElementById("products");
-box.innerHTML="";
-
-products.forEach(p=>{
-box.innerHTML+=`
-<div class="card" onclick="showDetail('${p}')">
-<img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
-<h3>${p}</h3>
-<button class="btn" onclick="event.stopPropagation();addToCart('${p}')">Add</button>
-</div>`;
-});
-}
-loadProducts();
-
-/* DETAIL PAGE */
-function showDetail(p){
-document.getElementById("products").style.display="none";
-let d=document.getElementById("detail");
-d.style.display="block";
-
-d.innerHTML=`
-<h2>${p}</h2>
-<img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db" width="200">
-<p>High quality battery with long backup.</p>
-<button class="btn" onclick="addToCart('${p}')">Add to Cart</button>
-<button class="btn" onclick="buyNow('${p}')">Buy Now</button>
-<button class="btn" onclick="goHome()">⬅ Back</button>
-`;
-}
-
-/* HOME */
-function goHome(){
-document.getElementById("products").style.display="flex";
-document.getElementById("detail").style.display="none";
-}
-
-/* CART */
-function addToCart(p){
-cart.push(p);
-updateCart();
-}
-
-function toggleCart(){
-document.getElementById("cart").classList.toggle("active");
-}
-
-function updateCart(){
-let c=document.getElementById("cart");
-c.innerHTML="<h3>Your Cart</h3>";
-
-cart.forEach(i=>{
-c.innerHTML+=`<p>${i}</p>`;
-});
-
-c.innerHTML+=`<button class="btn" onclick="sendCart()">Order</button>`;
-}
-
-/* BUY */
-function buyNow(p){
-let msg="I want "+p;
-window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
-}
-
-function sendCart(){
-let msg=cart.join(",");
-window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
-}
-
-/* VIEW */
-function setGrid(){
-document.getElementById("products").className="grid";
-}
-function setList(){
-document.getElementById("products").className="list";
-}
-
-</script>
-
-</body>
-</html>
+</div>
+</div>
