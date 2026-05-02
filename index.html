@@ -8,7 +8,7 @@
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(135deg,#e3f2fd,#f4f7fb);
+background:linear-gradient(135deg,#e3f2fd,#ffffff);
 }
 
 /* TOP */
@@ -20,55 +20,52 @@ background:#0b3d91;color:white;padding:8px;text-align:center;
 .header{
 display:flex;justify-content:space-between;
 align-items:center;padding:15px;background:white;
-box-shadow:0 2px 10px #ddd;
+box-shadow:0 2px 15px rgba(0,0,0,0.1);
 }
 
 .logo{
 font-size:22px;font-weight:bold;color:#0b3d91;cursor:pointer;
 }
 
-.user-box{
-display:flex;align-items:center;
-}
-
 /* BUTTON */
 .btn{
 background:#0b3d91;color:white;padding:8px 15px;
 border:none;cursor:pointer;margin:5px;border-radius:20px;
+transition:0.3s;
 }
-
-/* LOGIN */
-.login-box{
-position:fixed;
-top:50%;left:50%;
-transform:translate(-50%,-50%);
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 0 20px #aaa;
-display:none;
-}
-.login-box input{
-display:block;
-margin:10px 0;
-padding:8px;
-width:200px;
+.btn:hover{
+background:#062c6b;
+transform:scale(1.05);
 }
 
 /* SEARCH */
 .search{text-align:center;padding:10px;}
 .search input{
-padding:10px;width:60%;
-border-radius:20px;border:1px solid #ccc;
+padding:12px;width:60%;
+border-radius:25px;border:1px solid #ccc;
 }
 
 /* VIEW */
 .view-btns{text-align:center;}
 
-/* ANIMATION */
-.slider{overflow:hidden;background:white;padding:10px;}
-.track{display:flex;gap:40px;animation:scroll 18s linear infinite;}
-.slide{font-weight:bold;color:#0b3d91;}
+/* 🔥 ANIMATION BAR FIXED */
+.slider{
+overflow:hidden;
+background:white;
+padding:12px;
+border-top:1px solid #eee;
+border-bottom:1px solid #eee;
+}
+.track{
+display:flex;
+gap:60px;
+animation:scroll 20s linear infinite;
+}
+.slide{
+font-weight:bold;
+color:#0b3d91;
+font-size:18px;
+}
 @keyframes scroll{
 0%{transform:translateX(100%);}
 100%{transform:translateX(-100%);}
@@ -76,60 +73,115 @@ border-radius:20px;border:1px solid #ccc;
 
 /* HERO */
 .hero{text-align:center;padding:30px;}
+.hero h1{
+color:#0b3d91;
+font-size:28px;
+}
 
 /* CATEGORIES */
 .categories{
 display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
 }
 .cat{
-background:white;width:140px;margin:10px;padding:10px;
+background:white;width:140px;margin:10px;padding:15px;
 text-align:center;border-radius:15px;
-box-shadow:0 0 15px #ddd;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+transition:0.4s;
 }
+.cat:hover{
+transform:translateY(-10px) scale(1.05);
+}
+.cat img{width:80px;}
 
 /* BRANDS */
 .brands{
 display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
 }
 .brand{
-background:white;width:130px;margin:10px;padding:10px;
+background:white;width:130px;margin:10px;padding:15px;
 text-align:center;border-radius:15px;
-box-shadow:0 0 15px #ddd;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
 cursor:pointer;
+transition:0.4s;
 }
+.brand:hover{
+transform:translateY(-10px) scale(1.1);
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+.brand img{width:90px;}
 
 /* PRODUCTS */
 .products{display:none;padding:20px;}
 .grid{display:flex;flex-wrap:wrap;justify-content:center;}
 
 .card{
-background:white;width:200px;margin:10px;padding:10px;
+background:white;width:200px;margin:12px;padding:10px;
 text-align:center;border-radius:15px;
-box-shadow:0 0 15px #ddd;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
 cursor:pointer;
+transition:0.4s;
+}
+.card:hover{
+transform:translateY(-12px) scale(1.05);
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 .card img{width:100%;}
 
-/* DETAIL */
+/* LIST VIEW */
+.list .card{
+width:90%;
+display:flex;
+align-items:center;
+text-align:left;
+}
+.list .card img{
+width:120px;
+margin-right:15px;
+}
+
+/* DETAIL (Shopify style) */
 .detail{display:none;padding:20px;}
 .detail-box{
-display:flex;flex-wrap:wrap;background:white;
-padding:20px;border-radius:15px;
-box-shadow:0 0 15px #ddd;
+display:flex;
+flex-wrap:wrap;
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 25px rgba(0,0,0,0.15);
 }
-.detail-box img{width:300px;}
-.detail-info{flex:1;padding:20px;}
+.detail-box img{
+width:320px;
+}
+.detail-info{
+flex:1;
+padding:20px;
+}
 
-.qty{display:flex;align-items:center;}
-.qty button{margin:5px;}
+.qty{
+display:flex;
+align-items:center;
+margin:10px 0;
+}
+.qty button{
+padding:6px 12px;
+font-size:16px;
+}
 
 /* FOOTER */
-.footer{text-align:center;padding:20px;color:#666;}
+.footer{
+text-align:center;
+padding:20px;
+color:#666;
+}
 
 /* WHATSAPP */
 .whatsapp{
-position:fixed;bottom:20px;right:20px;
-background:#25D366;color:white;padding:15px;
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px;
 border-radius:50%;
 }
 </style>
@@ -143,20 +195,7 @@ border-radius:50%;
 
 <div class="header">
 <div class="logo" onclick="goHome()">Abuzar Battery 🔋</div>
-
-<div class="user-box">
-<span id="username"></span>
-<button class="btn" onclick="openLogin()">Login</button>
-<button class="btn" onclick="logout()">Logout</button>
-<button class="btn" onclick="showCart()">🛒</button>
-</div>
-</div>
-
-<!-- LOGIN -->
-<div class="login-box" id="loginBox">
-<h3>Login / Signup</h3>
-<input type="text" id="name" placeholder="Enter Name">
-<button class="btn" onclick="login()">Continue</button>
+<button class="btn" onclick="showCart()">🛒 Cart</button>
 </div>
 
 <div class="search">
@@ -168,7 +207,7 @@ border-radius:50%;
 <button class="btn" onclick="setList()">List</button>
 </div>
 
-<!-- ANIMATION -->
+<!-- 🔥 ANIMATION -->
 <div class="slider">
 <div class="track">
 <div class="slide">OSAKA</div>
@@ -177,6 +216,8 @@ border-radius:50%;
 <div class="slide">EXIDE</div>
 <div class="slide">VOLTA</div>
 <div class="slide">DAEWOO</div>
+<div class="slide">OSAKA</div>
+<div class="slide">AGS</div>
 </div>
 </div>
 
@@ -187,21 +228,21 @@ border-radius:50%;
 
 <!-- CATEGORIES -->
 <div class="categories">
-<div class="cat">UPS Batteries</div>
-<div class="cat">Car Batteries</div>
-<div class="cat">Solar Batteries</div>
-<div class="cat">Dry Batteries</div>
-<div class="cat">Deep Cycle Batteries</div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Solar Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Dry Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
 </div>
 
 <!-- BRANDS -->
 <div id="brands" class="brands">
-<div class="brand" onclick="showBrand('osaka')">OSAKA</div>
-<div class="brand" onclick="showBrand('ags')">AGS</div>
-<div class="brand" onclick="showBrand('phoenix')">PHOENIX</div>
-<div class="brand" onclick="showBrand('exide')">EXIDE</div>
-<div class="brand" onclick="showBrand('volta')">VOLTA</div>
-<div class="brand" onclick="showBrand('daewoo')">DAEWOO</div>
+<div class="brand" onclick="showBrand('osaka')"><img src="https://via.placeholder.com/90"><p>OSAKA</p></div>
+<div class="brand" onclick="showBrand('ags')"><img src="https://via.placeholder.com/90"><p>AGS</p></div>
+<div class="brand" onclick="showBrand('phoenix')"><img src="https://via.placeholder.com/90"><p>PHOENIX</p></div>
+<div class="brand" onclick="showBrand('exide')"><img src="https://via.placeholder.com/90"><p>EXIDE</p></div>
+<div class="brand" onclick="showBrand('volta')"><img src="https://via.placeholder.com/90"><p>VOLTA</p></div>
+<div class="brand" onclick="showBrand('daewoo')"><img src="https://via.placeholder.com/90"><p>DAEWOO</p></div>
 </div>
 
 <!-- PRODUCTS -->
@@ -239,36 +280,9 @@ let cart=[];
 let current="";
 let q=1;
 
-/* LOGIN SYSTEM */
-function openLogin(){
-document.getElementById("loginBox").style.display="block";
-}
-
-function login(){
-let name=document.getElementById("name").value;
-localStorage.setItem("user",name);
-document.getElementById("loginBox").style.display="none";
-showUser();
-}
-
-function showUser(){
-let u=localStorage.getItem("user");
-if(u){
-document.getElementById("username").innerText="Hi, "+u;
-}
-}
-
-function logout(){
-localStorage.removeItem("user");
-location.reload();
-}
-
-showUser();
-
-/* DATA */
 let data={
-osaka:["NS40","NS60"],
-ags:["GR-65"],
+osaka:["NS40","NS60","TA-1200"],
+ags:["GR-65","SP-180"],
 phoenix:["XP-70"],
 exide:["N55"],
 volta:["T-125"],
