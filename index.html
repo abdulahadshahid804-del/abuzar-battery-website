@@ -7,263 +7,207 @@
 <style>
 body{margin:0;font-family:Arial;background:#f4f7fb;}
 
-/* TOP BAR */
 .topbar{
-background:#0b3d91;
-color:white;
-padding:8px;
-text-align:center;
+background:#0b3d91;color:white;padding:8px;text-align:center;
 }
 
-/* HEADER */
 .header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px;
-background:white;
+display:flex;justify-content:space-between;
+align-items:center;padding:15px;background:white;
 }
 
-/* SEARCH */
+.logo{
+font-size:22px;font-weight:bold;color:#0b3d91;cursor:pointer;
+}
+
+.btn{
+background:#0b3d91;color:white;padding:8px 15px;
+border:none;cursor:pointer;margin:5px;
+}
+
 .search{
-padding:10px;
-width:90%;
-margin:10px auto;
-display:block;
+text-align:center;padding:10px;
+}
+.search input{
+padding:8px;width:60%;
 }
 
-/* BRAND SLIDER */
-.slider{
-overflow:hidden;
-background:white;
-padding:10px;
+/* BRANDS */
+.brands{
+display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
 }
-.track{
-display:flex;
-animation:scroll 15s linear infinite;
-}
-.slide{
-min-width:120px;
-text-align:center;
-font-weight:bold;
-color:#0b3d91;
-}
-@keyframes scroll{
-0%{transform:translateX(0);}
-100%{transform:translateX(-50%);}
+.brand{
+background:white;width:130px;margin:10px;padding:10px;
+text-align:center;border-radius:10px;box-shadow:0 0 10px #ddd;
+cursor:pointer;
 }
 
 /* CATEGORIES */
 .categories{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-padding:10px;
+display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
 }
 .cat{
-background:white;
-margin:10px;
-padding:10px;
-width:140px;
-text-align:center;
-border-radius:10px;
-box-shadow:0 0 10px #ddd;
+background:white;width:140px;margin:10px;padding:10px;
+text-align:center;border-radius:10px;box-shadow:0 0 10px #ddd;
 }
-.cat img{width:80px;}
-
-/* BRANDS */
-.brands{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-}
-.brand{
-background:white;
-margin:10px;
-padding:10px;
-width:130px;
-text-align:center;
-border-radius:10px;
-box-shadow:0 0 10px #ddd;
-cursor:pointer;
-}
-.brand img{width:80px;}
 
 /* PRODUCTS */
-.products{
-display:none;
-padding:20px;
-}
+.products{display:none;padding:20px;}
 .grid{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
+display:flex;flex-wrap:wrap;justify-content:center;
 }
 .card{
-background:white;
-margin:10px;
-padding:10px;
-width:180px;
-text-align:center;
-border-radius:10px;
-box-shadow:0 0 10px #ddd;
+background:white;width:200px;margin:10px;padding:10px;
+text-align:center;border-radius:10px;box-shadow:0 0 10px #ddd;
 }
 .card img{width:100%;}
 
-/* BUTTON */
-.btn{
-background:#0b3d91;
-color:white;
-padding:8px;
-border:none;
-cursor:pointer;
-margin-top:5px;
-}
-
 /* WHATSAPP */
 .whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:15px;
+position:fixed;bottom:20px;right:20px;
+background:#25D366;color:white;padding:15px;
 border-radius:50%;
 text-decoration:none;
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
-📍 Lahore | 📞 03014681059
+📍 Gulshan-e-Ravi Lahore | 📞 03014681059
 </div>
 
 <div class="header">
-<h2>ABUZAR BATTERY 🔋</h2>
-<button onclick="showCart()">🛒</button>
+<div class="logo" onclick="goHome()">ABUZAR BATTERY 🔋</div>
+<button class="btn" onclick="showCart()">🛒 Cart</button>
 </div>
 
-<input class="search" placeholder="Search battery..." onkeyup="searchProduct(this.value)">
-
-<!-- SLIDER -->
-<div class="slider">
-<div class="track">
-<div class="slide">OSAKA</div>
-<div class="slide">AGS</div>
-<div class="slide">PHOENIX</div>
-<div class="slide">EXIDE</div>
-<div class="slide">VOLTA</div>
-<div class="slide">DAEWOO</div>
-</div>
-</div>
-
-<!-- CATEGORIES -->
-<div class="categories">
-<div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Solar Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Dry Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
+<div class="search">
+<input type="text" id="search" placeholder="Search battery..." onkeyup="searchProduct()">
 </div>
 
 <!-- BRANDS -->
 <div id="brands" class="brands">
-
-<div class="brand" onclick="showBrand('osaka')">
-<img src="https://via.placeholder.com/100">
-<p>OSAKA</p>
+<div class="brand" onclick="showBrand('osaka')">OSAKA</div>
+<div class="brand" onclick="showBrand('ags')">AGS</div>
+<div class="brand" onclick="showBrand('phoenix')">PHOENIX</div>
+<div class="brand" onclick="showBrand('exide')">EXIDE</div>
+<div class="brand" onclick="showBrand('volta')">VOLTA</div>
+<div class="brand" onclick="showBrand('daewoo')">DAEWOO</div>
 </div>
 
-<div class="brand" onclick="showBrand('ags')">
-<img src="https://via.placeholder.com/100">
-<p>AGS</p>
-</div>
-
-<div class="brand" onclick="showBrand('phoenix')">
-<img src="https://via.placeholder.com/100">
-<p>PHOENIX</p>
-</div>
-
-<div class="brand" onclick="showBrand('exide')">
-<img src="https://via.placeholder.com/100">
-<p>EXIDE</p>
-</div>
-
-<div class="brand" onclick="showBrand('volta')">
-<img src="https://via.placeholder.com/100">
-<p>VOLTA</p>
-</div>
-
-<div class="brand" onclick="showBrand('daewoo')">
-<img src="https://via.placeholder.com/100">
-<p>DAEWOO</p>
-</div>
-
+<!-- CATEGORIES -->
+<div class="categories">
+<div class="cat">UPS Batteries</div>
+<div class="cat">Car Batteries</div>
+<div class="cat">Solar Batteries</div>
+<div class="cat">Dry Batteries</div>
+<div class="cat">Deep Cycle Batteries</div>
 </div>
 
 <!-- PRODUCTS -->
 <div id="products" class="products">
-<h2 id="title"></h2>
-<div id="list" class="grid"></div>
+<button class="btn" onclick="goHome()">⬅ Back</button>
+<h2 id="brandTitle" style="text-align:center;"></h2>
+<div class="grid" id="productList"></div>
 </div>
 
-<a class="whatsapp" href="#" onclick="sendCart()">💬</a>
+<a class="whatsapp" href="#" onclick="sendCartWhatsApp()">💬</a>
 
 <script>
 
 let cart=[];
 
 let data={
-osaka:["NS60","TA-1200","TA-1500","TA-1800"],
-ags:["GR-65","SP-180","GX-175"],
-phoenix:["XP-50","XP-70"],
-exide:["N55","N65"],
-volta:["T-125","T-150"],
-daewoo:["DL-50","DL-60"]
+osaka:["NS40","NS60","NS65","TA-1200","TA-1500","TA-1800"],
+ags:["GR-46","GR-65","GR-70","SP-180","GX-175","GX-200"],
+phoenix:["XP-50","XP-70","PX-150","PX-200T"],
+exide:["N55","N65","HP150","TR2500"],
+volta:["T-125","T-150","T-180"],
+daewoo:["DL-50","DL-60","DLS-65"]
 };
 
-function showBrand(b){
+function showBrand(brand){
 document.getElementById("brands").style.display="none";
+document.querySelector(".categories").style.display="none";
 document.getElementById("products").style.display="block";
-document.getElementById("title").innerText=b.toUpperCase();
 
-let html="";
-data[b].forEach(p=>{
-html+=`
+document.getElementById("brandTitle").innerText=brand.toUpperCase();
+
+let list=document.getElementById("productList");
+list.innerHTML="";
+
+data[brand].forEach(model=>{
+list.innerHTML+=`
 <div class="card">
 <img src="https://via.placeholder.com/150">
-<h3>${b.toUpperCase()} ${p}</h3>
-<button class="btn" onclick="addCart('${b} ${p}')">Add</button>
+<h3>${brand.toUpperCase()} ${model}</h3>
+
+<button class="btn" onclick="buyNow('${brand} ${model}')">Buy Now</button>
+<button class="btn" onclick="addToCart('${brand} ${model}')">Add to Cart</button>
+
 </div>`;
 });
-
-document.getElementById("list").innerHTML=html;
 }
 
-function addCart(p){
+function goHome(){
+document.getElementById("brands").style.display="flex";
+document.querySelector(".categories").style.display="flex";
+document.getElementById("products").style.display="none";
+}
+
+function addToCart(p){
 cart.push(p);
-alert("Added: "+p);
+alert(p+" added to cart 🛒");
 }
 
 function showCart(){
-alert(cart.length?cart.join("\n"):"Cart empty");
+if(cart.length===0) alert("Cart empty");
+else alert("Cart:\n"+cart.join("\n"));
 }
 
-function sendCart(){
-if(cart.length==0){alert("Cart empty");return;}
-let msg="Order:\n"+cart.join("\n");
+function buyNow(product){
+let msg="Assalamualaikum, mujhe ye battery chahiye: "+product;
 window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
 }
 
-function searchProduct(q){
-q=q.toLowerCase();
-let cards=document.querySelectorAll(".card");
-cards.forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(q)?"block":"none";
+function sendCartWhatsApp(){
+if(cart.length===0){alert("Cart empty");return;}
+let msg="Assalamualaikum, mujhe ye batteries chahiye:\n\n"+cart.join("\n");
+window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
+}
+
+function searchProduct(){
+let input=document.getElementById("search").value.toLowerCase();
+
+let list=document.getElementById("productList");
+list.innerHTML="";
+
+let found=false;
+
+for(let brand in data){
+data[brand].forEach(model=>{
+let full=brand+" "+model;
+if(full.toLowerCase().includes(input)){
+found=true;
+list.innerHTML+=`
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>${full.toUpperCase()}</h3>
+<button class="btn" onclick="buyNow('${full}')">Buy Now</button>
+<button class="btn" onclick="addToCart('${full}')">Add to Cart</button>
+</div>`;
+}
 });
+}
+
+if(found){
+document.getElementById("brands").style.display="none";
+document.querySelector(".categories").style.display="none";
+document.getElementById("products").style.display="block";
+document.getElementById("brandTitle").innerText="Search Results";
+}
 }
 
 </script>
