@@ -34,16 +34,26 @@ padding:10px;width:60%;
 border-radius:20px;border:1px solid #ccc;
 }
 
-/* ANIMATION BAR */
+/* VIEW BUTTONS */
+.view-btns{
+text-align:center;
+margin-bottom:10px;
+}
+
+/* ANIMATION BAR (FIXED SMOOTH) */
 .slider{overflow:hidden;background:white;padding:10px;}
-.track{display:flex;animation:scroll 10s linear infinite;}
+.track{
+display:flex;
+gap:40px;
+animation:scroll 18s linear infinite;
+}
 .slide{
 min-width:120px;text-align:center;
 font-weight:bold;color:#0b3d91;
 }
 @keyframes scroll{
-0%{transform:translateX(0);}
-100%{transform:translateX(-50%);}
+0%{transform:translateX(100%);}
+100%{transform:translateX(-100%);}
 }
 
 /* HERO */
@@ -74,9 +84,11 @@ text-align:center;border-radius:15px;
 box-shadow:0 0 15px #ddd;
 cursor:pointer;
 transition:0.4s;
+border:1px solid #eee;
 }
 .brand:hover{
 transform:translateY(-10px) scale(1.1);
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 .brand img{
 width:90px;
@@ -88,20 +100,40 @@ transform:rotate(5deg) scale(1.1);
 
 /* PRODUCTS */
 .products{display:none;padding:20px;}
-.grid{display:flex;flex-wrap:wrap;justify-content:center;}
+.grid{
+display:flex;flex-wrap:wrap;justify-content:center;
+}
+
+/* CARD */
 .card{
 background:white;width:200px;margin:10px;padding:10px;
 text-align:center;border-radius:15px;
 box-shadow:0 0 15px #ddd;
 transition:0.4s;
+border:1px solid #eee;
 }
-.card:hover{transform:translateY(-10px) scale(1.05);}
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
 .card img{
 width:100%;
 transition:0.4s;
 }
 .card:hover img{
 transform:scale(1.1);
+}
+
+/* LIST VIEW */
+.list .card{
+width:90%;
+display:flex;
+align-items:center;
+text-align:left;
+}
+.list .card img{
+width:120px;
+margin-right:15px;
 }
 
 /* BUTTON */
@@ -141,6 +173,12 @@ text-decoration:none;
 <input type="text" id="search" placeholder="Search battery..." onkeyup="searchProduct()">
 </div>
 
+<!-- VIEW BUTTONS -->
+<div class="view-btns">
+<button class="btn" onclick="setGrid()">Grid View</button>
+<button class="btn" onclick="setList()">List View</button>
+</div>
+
 <!-- ANIMATION -->
 <div class="slider">
 <div class="track">
@@ -170,31 +208,12 @@ text-decoration:none;
 
 <!-- BRANDS -->
 <div id="brands" class="brands">
-
-<div class="brand" onclick="showBrand('osaka')">
-<img src="https://seeklogo.com/images/O/osaka-logo.png"><p>OSAKA</p>
-</div>
-
-<div class="brand" onclick="showBrand('ags')">
-<img src="https://seeklogo.com/images/A/ags-logo.png"><p>AGS</p>
-</div>
-
-<div class="brand" onclick="showBrand('phoenix')">
-<img src="https://seeklogo.com/images/P/phoenix-logo.png"><p>PHOENIX</p>
-</div>
-
-<div class="brand" onclick="showBrand('exide')">
-<img src="https://seeklogo.com/images/E/exide-logo.png"><p>EXIDE</p>
-</div>
-
-<div class="brand" onclick="showBrand('volta')">
-<img src="https://seeklogo.com/images/V/volta-logo.png"><p>VOLTA</p>
-</div>
-
-<div class="brand" onclick="showBrand('daewoo')">
-<img src="https://seeklogo.com/images/D/daewoo-logo.png"><p>DAEWOO</p>
-</div>
-
+<div class="brand" onclick="showBrand('osaka')"><img src="https://seeklogo.com/images/O/osaka-logo.png"><p>OSAKA</p></div>
+<div class="brand" onclick="showBrand('ags')"><img src="https://seeklogo.com/images/A/ags-logo.png"><p>AGS</p></div>
+<div class="brand" onclick="showBrand('phoenix')"><img src="https://seeklogo.com/images/P/phoenix-logo.png"><p>PHOENIX</p></div>
+<div class="brand" onclick="showBrand('exide')"><img src="https://seeklogo.com/images/E/exide-logo.png"><p>EXIDE</p></div>
+<div class="brand" onclick="showBrand('volta')"><img src="https://seeklogo.com/images/V/volta-logo.png"><p>VOLTA</p></div>
+<div class="brand" onclick="showBrand('daewoo')"><img src="https://seeklogo.com/images/D/daewoo-logo.png"><p>DAEWOO</p></div>
 </div>
 
 <!-- PRODUCTS -->
@@ -205,13 +224,12 @@ text-decoration:none;
 </div>
 
 <div class="footer">
-© 2026 Abuzar Battery Service | Trusted Battery Shop Lahore
+© 2026 Abuzar Battery Service
 </div>
 
 <a class="whatsapp" href="#" onclick="sendCartWhatsApp()">💬</a>
 
 <script>
-
 let cart=[];
 
 let data={
@@ -227,7 +245,6 @@ function showBrand(brand){
 document.getElementById("brands").style.display="none";
 document.querySelector(".categories").style.display="none";
 document.getElementById("products").style.display="block";
-
 document.getElementById("brandTitle").innerText=brand.toUpperCase();
 
 let list=document.getElementById("productList");
@@ -238,10 +255,8 @@ list.innerHTML+=`
 <div class="card">
 <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
 <h3>${brand.toUpperCase()} ${model}</h3>
-
 <button class="btn" onclick="buyNow('${brand} ${model}')">Buy Now</button>
 <button class="btn" onclick="addToCart('${brand} ${model}')">Add to Cart</button>
-
 </div>`;
 });
 }
@@ -275,10 +290,8 @@ window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
 
 function searchProduct(){
 let input=document.getElementById("search").value.toLowerCase();
-
 let list=document.getElementById("productList");
 list.innerHTML="";
-
 let found=false;
 
 for(let brand in data){
@@ -305,6 +318,13 @@ document.getElementById("brandTitle").innerText="Search Results";
 }
 }
 
+function setGrid(){
+document.getElementById("productList").classList.remove("list");
+}
+
+function setList(){
+document.getElementById("productList").classList.add("list");
+}
 </script>
 
 </body>
