@@ -28,21 +28,15 @@ font-size:22px;font-weight:bold;color:#0b3d91;cursor:pointer;
 }
 
 /* SEARCH */
-.search{
-text-align:center;padding:10px;
-}
+.search{text-align:center;padding:10px;}
 .search input{
 padding:10px;width:60%;
 border-radius:20px;border:1px solid #ccc;
 }
 
 /* ANIMATION BAR */
-.slider{
-overflow:hidden;background:white;padding:10px;
-}
-.track{
-display:flex;animation:scroll 10s linear infinite;
-}
+.slider{overflow:hidden;background:white;padding:10px;}
+.track{display:flex;animation:scroll 10s linear infinite;}
 .slide{
 min-width:120px;text-align:center;
 font-weight:bold;color:#0b3d91;
@@ -52,19 +46,10 @@ font-weight:bold;color:#0b3d91;
 100%{transform:translateX(-50%);}
 }
 
-/* HERO TEXT */
-.hero{
-text-align:center;padding:30px;
-}
-.hero h1{
-color:#0b3d91;
-font-size:28px;
-}
-.hero p{
-color:#555;
-max-width:600px;
-margin:auto;
-}
+/* HERO */
+.hero{text-align:center;padding:30px;}
+.hero h1{color:#0b3d91;}
+.hero p{color:#555;max-width:600px;margin:auto;}
 
 /* CATEGORIES */
 .categories{
@@ -76,9 +61,7 @@ text-align:center;border-radius:15px;
 box-shadow:0 0 15px #ddd;
 transition:0.4s;
 }
-.cat:hover{
-transform:translateY(-10px) scale(1.05);
-}
+.cat:hover{transform:translateY(-10px) scale(1.05);}
 .cat img{width:80px;}
 
 /* BRANDS */
@@ -95,23 +78,31 @@ transition:0.4s;
 .brand:hover{
 transform:translateY(-10px) scale(1.1);
 }
-.brand img{width:90px;}
+.brand img{
+width:90px;
+transition:0.4s;
+}
+.brand:hover img{
+transform:rotate(5deg) scale(1.1);
+}
 
 /* PRODUCTS */
 .products{display:none;padding:20px;}
-.grid{
-display:flex;flex-wrap:wrap;justify-content:center;
-}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;}
 .card{
 background:white;width:200px;margin:10px;padding:10px;
 text-align:center;border-radius:15px;
 box-shadow:0 0 15px #ddd;
 transition:0.4s;
 }
-.card:hover{
-transform:translateY(-10px) scale(1.05);
+.card:hover{transform:translateY(-10px) scale(1.05);}
+.card img{
+width:100%;
+transition:0.4s;
 }
-.card img{width:100%;}
+.card:hover img{
+transform:scale(1.1);
+}
 
 /* BUTTON */
 .btn{
@@ -120,7 +111,7 @@ border:none;cursor:pointer;margin:5px;
 border-radius:20px;
 }
 
-/* FOOTER TEXT */
+/* FOOTER */
 .footer{
 text-align:center;padding:20px;color:#666;
 }
@@ -162,44 +153,48 @@ text-decoration:none;
 </div>
 </div>
 
-<!-- HERO TEXT -->
+<!-- HERO -->
 <div class="hero">
 <h1>پاکستان کی بہترین بیٹری سروس 🔋</h1>
-<p>
-High quality car, UPS, solar & deep cycle batteries available.
-Trusted service, best prices, fast delivery — order now on WhatsApp.
-</p>
+<p>Car, UPS, Solar & Deep Cycle batteries — best price, fast delivery, trusted service.</p>
 </div>
 
 <!-- CATEGORIES -->
 <div class="categories">
-<div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Solar Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Dry Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d"><p>UPS Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789"><p>Car Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231"><p>Solar Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1611138745566-3f9b8f8e6e7b"><p>Dry Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db"><p>Deep Cycle Batteries</p></div>
 </div>
 
 <!-- BRANDS -->
 <div id="brands" class="brands">
+
 <div class="brand" onclick="showBrand('osaka')">
-<img src="https://via.placeholder.com/100"><p>OSAKA</p>
+<img src="https://seeklogo.com/images/O/osaka-logo.png"><p>OSAKA</p>
 </div>
+
 <div class="brand" onclick="showBrand('ags')">
-<img src="https://via.placeholder.com/100"><p>AGS</p>
+<img src="https://seeklogo.com/images/A/ags-logo.png"><p>AGS</p>
 </div>
+
 <div class="brand" onclick="showBrand('phoenix')">
-<img src="https://via.placeholder.com/100"><p>PHOENIX</p>
+<img src="https://seeklogo.com/images/P/phoenix-logo.png"><p>PHOENIX</p>
 </div>
+
 <div class="brand" onclick="showBrand('exide')">
-<img src="https://via.placeholder.com/100"><p>EXIDE</p>
+<img src="https://seeklogo.com/images/E/exide-logo.png"><p>EXIDE</p>
 </div>
+
 <div class="brand" onclick="showBrand('volta')">
-<img src="https://via.placeholder.com/100"><p>VOLTA</p>
+<img src="https://seeklogo.com/images/V/volta-logo.png"><p>VOLTA</p>
 </div>
+
 <div class="brand" onclick="showBrand('daewoo')">
-<img src="https://via.placeholder.com/100"><p>DAEWOO</p>
+<img src="https://seeklogo.com/images/D/daewoo-logo.png"><p>DAEWOO</p>
 </div>
+
 </div>
 
 <!-- PRODUCTS -->
@@ -210,7 +205,7 @@ Trusted service, best prices, fast delivery — order now on WhatsApp.
 </div>
 
 <div class="footer">
-© 2026 Abuzar Battery Service | Trusted Battery Shop in Lahore
+© 2026 Abuzar Battery Service | Trusted Battery Shop Lahore
 </div>
 
 <a class="whatsapp" href="#" onclick="sendCartWhatsApp()">💬</a>
@@ -241,7 +236,7 @@ list.innerHTML="";
 data[brand].forEach(model=>{
 list.innerHTML+=`
 <div class="card">
-<img src="https://via.placeholder.com/150">
+<img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
 <h3>${brand.toUpperCase()} ${model}</h3>
 
 <button class="btn" onclick="buyNow('${brand} ${model}')">Buy Now</button>
@@ -293,7 +288,7 @@ if(full.toLowerCase().includes(input)){
 found=true;
 list.innerHTML+=`
 <div class="card">
-<img src="https://via.placeholder.com/150">
+<img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
 <h3>${full.toUpperCase()}</h3>
 <button class="btn" onclick="buyNow('${full}')">Buy Now</button>
 <button class="btn" onclick="addToCart('${full}')">Add to Cart</button>
