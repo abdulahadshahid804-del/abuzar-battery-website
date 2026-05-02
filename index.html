@@ -35,19 +35,16 @@ border-radius:20px;border:1px solid #ccc;
 }
 
 /* VIEW BUTTONS */
-.view-btns{text-align:center;margin-bottom:10px;}
+.view-btns{text-align:center;}
+.btn{
+background:#0b3d91;color:white;padding:8px 15px;
+border:none;cursor:pointer;margin:5px;border-radius:20px;
+}
 
-/* ANIMATION BAR */
+/* ANIMATION */
 .slider{overflow:hidden;background:white;padding:10px;}
-.track{
-display:flex;
-gap:40px;
-animation:scroll 18s linear infinite;
-}
-.slide{
-min-width:120px;text-align:center;
-font-weight:bold;color:#0b3d91;
-}
+.track{display:flex;gap:40px;animation:scroll 18s linear infinite;}
+.slide{min-width:120px;font-weight:bold;color:#0b3d91;}
 @keyframes scroll{
 0%{transform:translateX(100%);}
 100%{transform:translateX(-100%);}
@@ -56,7 +53,6 @@ font-weight:bold;color:#0b3d91;
 /* HERO */
 .hero{text-align:center;padding:30px;}
 .hero h1{color:#0b3d91;}
-.hero p{color:#555;max-width:600px;margin:auto;}
 
 /* CATEGORIES */
 .categories{
@@ -68,7 +64,7 @@ text-align:center;border-radius:15px;
 box-shadow:0 0 15px #ddd;
 transition:0.4s;
 }
-.cat:hover{transform:translateY(-10px) scale(1.05);}
+.cat:hover{transform:translateY(-10px);}
 .cat img{width:80px;}
 
 /* BRANDS */
@@ -82,74 +78,58 @@ box-shadow:0 0 15px #ddd;
 cursor:pointer;
 transition:0.4s;
 }
-.brand:hover{
-transform:translateY(-10px) scale(1.1);
-}
+.brand:hover{transform:translateY(-10px);}
+.brand img{width:90px;}
 
 /* PRODUCTS */
 .products{display:none;padding:20px;}
-.grid{
-display:flex;flex-wrap:wrap;justify-content:center;
-}
-
-/* CARD */
+.grid{display:flex;flex-wrap:wrap;justify-content:center;}
 .card{
 background:white;width:200px;margin:10px;padding:10px;
 text-align:center;border-radius:15px;
 box-shadow:0 0 15px #ddd;
-transition:0.4s;
 cursor:pointer;
 }
-.card:hover{transform:translateY(-10px) scale(1.05);}
+.card img{width:100%;}
+
+/* LIST VIEW */
+.list .card{
+width:90%;display:flex;align-items:center;text-align:left;
+}
+.list .card img{
+width:120px;margin-right:15px;
+}
 
 /* DETAIL PAGE */
 .detail{
-display:none;
-padding:20px;
-background:white;
-margin:20px;
-border-radius:15px;
+display:none;padding:20px;
+}
+.detail-box{
+display:flex;flex-wrap:wrap;background:white;
+padding:20px;border-radius:15px;
 box-shadow:0 0 15px #ddd;
 }
-.detail-flex{
-display:flex;
-flex-wrap:wrap;
-align-items:center;
-}
-.detail img{
+.detail-box img{
 width:300px;
 }
 .detail-info{
-padding:20px;
+flex:1;padding:20px;
 }
 .qty{
-display:flex;
-align-items:center;
-gap:10px;
-margin:10px 0;
+display:flex;align-items:center;margin:10px 0;
 }
 .qty button{
-padding:5px 10px;
-}
-
-/* BUTTON */
-.btn{
-background:#0b3d91;color:white;padding:8px 15px;
-border:none;cursor:pointer;margin:5px;
-border-radius:20px;
+padding:5px 10px;margin:5px;
 }
 
 /* FOOTER */
-.footer{
-text-align:center;padding:20px;color:#666;
-}
+.footer{text-align:center;padding:20px;color:#666;}
 
 /* WHATSAPP */
 .whatsapp{
 position:fixed;bottom:20px;right:20px;
 background:#25D366;color:white;padding:15px;
-border-radius:50%;
-text-decoration:none;
+border-radius:50%;text-decoration:none;
 }
 </style>
 </head>
@@ -169,6 +149,11 @@ text-decoration:none;
 <input type="text" id="search" placeholder="Search battery..." onkeyup="searchProduct()">
 </div>
 
+<div class="view-btns">
+<button class="btn" onclick="setGrid()">Grid</button>
+<button class="btn" onclick="setList()">List</button>
+</div>
+
 <!-- ANIMATION -->
 <div class="slider">
 <div class="track">
@@ -183,27 +168,26 @@ text-decoration:none;
 
 <!-- HERO -->
 <div class="hero">
-<h1>Pakistan ki Best Battery Service 🔋</h1>
-<p>Car, UPS, Solar batteries — best price & fast delivery</p>
+<h1>پاکستان کی بہترین بیٹری سروس 🔋</h1>
 </div>
 
 <!-- CATEGORIES -->
 <div class="categories">
-<div class="cat"><p>UPS Batteries</p></div>
-<div class="cat"><p>Car Batteries</p></div>
-<div class="cat"><p>Solar Batteries</p></div>
-<div class="cat"><p>Dry Batteries</p></div>
-<div class="cat"><p>Deep Cycle Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d"><p>UPS Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789"><p>Car Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231"><p>Solar Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1611138745566-3f9b8f8e6e7b"><p>Dry Batteries</p></div>
+<div class="cat"><img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db"><p>Deep Cycle Batteries</p></div>
 </div>
 
 <!-- BRANDS -->
 <div id="brands" class="brands">
-<div class="brand" onclick="showBrand('osaka')"><p>OSAKA</p></div>
-<div class="brand" onclick="showBrand('ags')"><p>AGS</p></div>
-<div class="brand" onclick="showBrand('phoenix')"><p>PHOENIX</p></div>
-<div class="brand" onclick="showBrand('exide')"><p>EXIDE</p></div>
-<div class="brand" onclick="showBrand('volta')"><p>VOLTA</p></div>
-<div class="brand" onclick="showBrand('daewoo')"><p>DAEWOO</p></div>
+<div class="brand" onclick="showBrand('osaka')"><img src="https://seeklogo.com/images/O/osaka-logo.png"><p>OSAKA</p></div>
+<div class="brand" onclick="showBrand('ags')"><img src="https://seeklogo.com/images/A/ags-logo.png"><p>AGS</p></div>
+<div class="brand" onclick="showBrand('phoenix')"><img src="https://seeklogo.com/images/P/phoenix-logo.png"><p>PHOENIX</p></div>
+<div class="brand" onclick="showBrand('exide')"><img src="https://seeklogo.com/images/E/exide-logo.png"><p>EXIDE</p></div>
+<div class="brand" onclick="showBrand('volta')"><img src="https://seeklogo.com/images/V/volta-logo.png"><p>VOLTA</p></div>
+<div class="brand" onclick="showBrand('daewoo')"><img src="https://seeklogo.com/images/D/daewoo-logo.png"><p>DAEWOO</p></div>
 </div>
 
 <!-- PRODUCTS -->
@@ -216,46 +200,44 @@ text-decoration:none;
 <!-- DETAIL -->
 <div id="detail" class="detail">
 <button class="btn" onclick="backToProducts()">⬅ Back</button>
-
-<div class="detail-flex">
-<img src="https://via.placeholder.com/300">
-
+<div class="detail-box">
+<img id="dimg">
 <div class="detail-info">
-<h2 id="dName"></h2>
-<p>High quality battery with warranty</p>
+<h2 id="dname"></h2>
+<p>High quality battery - long life 🔋</p>
 
 <div class="qty">
-<button onclick="minus()">-</button>
+<button onclick="dec()">-</button>
 <span id="qty">1</span>
-<button onclick="plus()">+</button>
+<button onclick="inc()">+</button>
 </div>
 
 <button class="btn" onclick="addDetailCart()">Add to Cart</button>
 <button class="btn" onclick="buyDetail()">Buy Now</button>
-
 </div>
 </div>
 </div>
 
-<div class="footer">
-© 2026 Abuzar Battery Service
-</div>
-
+<div class="footer">© 2026 Abuzar Battery</div>
 <a class="whatsapp" href="#" onclick="sendCartWhatsApp()">💬</a>
 
 <script>
 let cart=[];
 let current="";
-let quantity=1;
+let q=1;
 
 let data={
 osaka:["NS40","NS60","TA-1200"],
 ags:["GR-65","SP-180"],
-phoenix:["XP-70"],
+phoenix:["XP-50","XP-70"],
 exide:["N55"],
 volta:["T-125"],
-daewoo:["DL-50"]
+daewoo:["DL-60"]
 };
+
+function getImage(){
+return "https://batterymax.pk/wp-content/uploads/2020/08/osaka-battery.jpg";
+}
 
 function showBrand(b){
 document.getElementById("brands").style.display="none";
@@ -269,19 +251,20 @@ list.innerHTML="";
 data[b].forEach(m=>{
 list.innerHTML+=`
 <div class="card" onclick="openDetail('${b} ${m}')">
+<img src="${getImage()}">
 <h3>${b.toUpperCase()} ${m}</h3>
 </div>`;
 });
 }
 
-function openDetail(name){
-current=name;
-quantity=1;
-document.getElementById("qty").innerText=1;
-document.getElementById("dName").innerText=name;
-
+function openDetail(p){
+current=p;
+q=1;
 document.getElementById("products").style.display="none";
 document.getElementById("detail").style.display="block";
+document.getElementById("dname").innerText=p;
+document.getElementById("dimg").src=getImage();
+document.getElementById("qty").innerText=q;
 }
 
 function backToProducts(){
@@ -289,40 +272,39 @@ document.getElementById("detail").style.display="none";
 document.getElementById("products").style.display="block";
 }
 
-function plus(){
-quantity++;
-document.getElementById("qty").innerText=quantity;
-}
-
-function minus(){
-if(quantity>1){
-quantity--;
-document.getElementById("qty").innerText=quantity;
-}
-}
+function inc(){q++;document.getElementById("qty").innerText=q;}
+function dec(){if(q>1)q--;document.getElementById("qty").innerText=q;}
 
 function addDetailCart(){
-cart.push(current+" x"+quantity);
-alert("Added 🛒");
+for(let i=0;i<q;i++) cart.push(current);
+alert("Added "+q);
 }
 
 function buyDetail(){
-let msg="Mujhe ye chahiye: "+current+" Qty:"+quantity;
-window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
+window.open("https://wa.me/923014681059?text="+current+" x"+q);
+}
+
+function showCart(){
+alert(cart.length?cart.join("\n"):"Cart empty");
+}
+
+function sendCartWhatsApp(){
+window.open("https://wa.me/923014681059?text="+cart.join("\n"));
 }
 
 function goHome(){
 location.reload();
 }
 
-function showCart(){
-alert(cart.join("\n") || "Cart empty");
+function setGrid(){
+document.getElementById("productList").classList.remove("list");
 }
 
-function sendCartWhatsApp(){
-let msg="Order:\n"+cart.join("\n");
-window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
+function setList(){
+document.getElementById("productList").classList.add("list");
 }
+
+function searchProduct(){}
 </script>
 
 </body>
