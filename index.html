@@ -5,15 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f7fb;}
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#e3f2fd,#f4f7fb);
+}
 
+/* TOP */
 .topbar{
 background:#0b3d91;color:white;padding:8px;text-align:center;
 }
 
+/* HEADER */
 .header{
 display:flex;justify-content:space-between;
 align-items:center;padding:15px;background:white;
+box-shadow:0 2px 10px #ddd;
 }
 
 .logo{
@@ -25,15 +32,16 @@ font-size:22px;font-weight:bold;color:#0b3d91;cursor:pointer;
 text-align:center;padding:10px;
 }
 .search input{
-padding:8px;width:60%;
+padding:10px;width:60%;
+border-radius:20px;border:1px solid #ccc;
 }
 
-/* ANIMATION SLIDER */
+/* ANIMATION BAR */
 .slider{
 overflow:hidden;background:white;padding:10px;
 }
 .track{
-display:flex;animation:scroll 12s linear infinite;
+display:flex;animation:scroll 10s linear infinite;
 }
 .slide{
 min-width:120px;text-align:center;
@@ -44,31 +52,49 @@ font-weight:bold;color:#0b3d91;
 100%{transform:translateX(-50%);}
 }
 
-/* CATEGORIES (UPPER) */
+/* HERO TEXT */
+.hero{
+text-align:center;padding:30px;
+}
+.hero h1{
+color:#0b3d91;
+font-size:28px;
+}
+.hero p{
+color:#555;
+max-width:600px;
+margin:auto;
+}
+
+/* CATEGORIES */
 .categories{
 display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
 }
 .cat{
 background:white;width:140px;margin:10px;padding:10px;
-text-align:center;border-radius:10px;
-box-shadow:0 0 10px #ddd;
-transition:0.3s;
+text-align:center;border-radius:15px;
+box-shadow:0 0 15px #ddd;
+transition:0.4s;
 }
-.cat:hover{transform:scale(1.05);}
+.cat:hover{
+transform:translateY(-10px) scale(1.05);
+}
 .cat img{width:80px;}
 
-/* BRANDS (NICHE) */
+/* BRANDS */
 .brands{
 display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
 }
 .brand{
 background:white;width:130px;margin:10px;padding:10px;
-text-align:center;border-radius:10px;
-box-shadow:0 0 10px #ddd;
+text-align:center;border-radius:15px;
+box-shadow:0 0 15px #ddd;
 cursor:pointer;
-transition:0.3s;
+transition:0.4s;
 }
-.brand:hover{transform:scale(1.1);}
+.brand:hover{
+transform:translateY(-10px) scale(1.1);
+}
 .brand img{width:90px;}
 
 /* PRODUCTS */
@@ -78,17 +104,25 @@ display:flex;flex-wrap:wrap;justify-content:center;
 }
 .card{
 background:white;width:200px;margin:10px;padding:10px;
-text-align:center;border-radius:10px;
-box-shadow:0 0 10px #ddd;
-transition:0.3s;
+text-align:center;border-radius:15px;
+box-shadow:0 0 15px #ddd;
+transition:0.4s;
 }
-.card:hover{transform:scale(1.05);}
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+}
 .card img{width:100%;}
 
 /* BUTTON */
 .btn{
 background:#0b3d91;color:white;padding:8px 15px;
 border:none;cursor:pointer;margin:5px;
+border-radius:20px;
+}
+
+/* FOOTER TEXT */
+.footer{
+text-align:center;padding:20px;color:#666;
 }
 
 /* WHATSAPP */
@@ -108,7 +142,7 @@ text-decoration:none;
 </div>
 
 <div class="header">
-<div class="logo" onclick="goHome()">ABUZAR BATTERY 🔋</div>
+<div class="logo" onclick="goHome()">Abuzar Battery Service 🔋</div>
 <button class="btn" onclick="showCart()">🛒 Cart</button>
 </div>
 
@@ -116,7 +150,7 @@ text-decoration:none;
 <input type="text" id="search" placeholder="Search battery..." onkeyup="searchProduct()">
 </div>
 
-<!-- 🔥 ANIMATION -->
+<!-- ANIMATION -->
 <div class="slider">
 <div class="track">
 <div class="slide">OSAKA</div>
@@ -128,7 +162,16 @@ text-decoration:none;
 </div>
 </div>
 
-<!-- 🔥 CATEGORIES (UPPER NOW) -->
+<!-- HERO TEXT -->
+<div class="hero">
+<h1>پاکستان کی بہترین بیٹری سروس 🔋</h1>
+<p>
+High quality car, UPS, solar & deep cycle batteries available.
+Trusted service, best prices, fast delivery — order now on WhatsApp.
+</p>
+</div>
+
+<!-- CATEGORIES -->
 <div class="categories">
 <div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
 <div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
@@ -137,7 +180,7 @@ text-decoration:none;
 <div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
 </div>
 
-<!-- 🔥 BRANDS (NICHE SHIFT) -->
+<!-- BRANDS -->
 <div id="brands" class="brands">
 <div class="brand" onclick="showBrand('osaka')">
 <img src="https://via.placeholder.com/100"><p>OSAKA</p>
@@ -164,6 +207,10 @@ text-decoration:none;
 <button class="btn" onclick="goHome()">⬅ Back</button>
 <h2 id="brandTitle" style="text-align:center;"></h2>
 <div class="grid" id="productList"></div>
+</div>
+
+<div class="footer">
+© 2026 Abuzar Battery Service | Trusted Battery Shop in Lahore
 </div>
 
 <a class="whatsapp" href="#" onclick="sendCartWhatsApp()">💬</a>
