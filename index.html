@@ -7,82 +7,166 @@
 <style>
 body{margin:0;font-family:Arial;background:#f4f7fb;}
 
+/* TOP BAR */
+.topbar{
+background:#0b3d91;
+color:white;
+padding:8px;
+text-align:center;
+}
+
+/* HEADER */
 .header{
-display:flex;justify-content:space-between;
-padding:15px;background:white;
-}
-
-.logo{font-size:22px;font-weight:bold;color:#0b3d91;}
-
-.btn{background:#0b3d91;color:white;padding:8px 15px;border:none;cursor:pointer;}
-
-/* BRAND GRID */
-.brands{
-display:flex;flex-wrap:wrap;justify-content:center;
-padding:20px;
-}
-
-.brand{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
 background:white;
-width:140px;
+}
+
+/* SEARCH */
+.search{
+padding:10px;
+width:90%;
+margin:10px auto;
+display:block;
+}
+
+/* BRAND SLIDER */
+.slider{
+overflow:hidden;
+background:white;
+padding:10px;
+}
+.track{
+display:flex;
+animation:scroll 15s linear infinite;
+}
+.slide{
+min-width:120px;
+text-align:center;
+font-weight:bold;
+color:#0b3d91;
+}
+@keyframes scroll{
+0%{transform:translateX(0);}
+100%{transform:translateX(-50%);}
+}
+
+/* CATEGORIES */
+.categories{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+padding:10px;
+}
+.cat{
+background:white;
 margin:10px;
 padding:10px;
+width:140px;
+text-align:center;
+border-radius:10px;
+box-shadow:0 0 10px #ddd;
+}
+.cat img{width:80px;}
+
+/* BRANDS */
+.brands{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+.brand{
+background:white;
+margin:10px;
+padding:10px;
+width:130px;
 text-align:center;
 border-radius:10px;
 box-shadow:0 0 10px #ddd;
 cursor:pointer;
 }
-
 .brand img{width:80px;}
-
-/* CATEGORIES */
-.categories{
-display:flex;flex-wrap:wrap;justify-content:center;
-padding:20px;
-}
-
-.cat{
-background:white;
-width:150px;
-margin:10px;
-padding:10px;
-text-align:center;
-border-radius:10px;
-box-shadow:0 0 10px #ddd;
-}
-
-.cat img{width:80px;}
 
 /* PRODUCTS */
 .products{
-padding:20px;
 display:none;
+padding:20px;
 }
-
 .grid{
-display:flex;flex-wrap:wrap;justify-content:center;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
 }
-
 .card{
 background:white;
-width:200px;
 margin:10px;
 padding:10px;
+width:180px;
 text-align:center;
 border-radius:10px;
 box-shadow:0 0 10px #ddd;
 }
-
 .card img{width:100%;}
+
+/* BUTTON */
+.btn{
+background:#0b3d91;
+color:white;
+padding:8px;
+border:none;
+cursor:pointer;
+margin-top:5px;
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:50%;
+text-decoration:none;
+}
 
 </style>
 </head>
 
 <body>
 
+<div class="topbar">
+📍 Lahore | 📞 03014681059
+</div>
+
 <div class="header">
-<div class="logo">ABUZAR BATTERY 🔋</div>
-<button class="btn" onclick="goHome()">🏠 Home</button>
+<h2>ABUZAR BATTERY 🔋</h2>
+<button onclick="showCart()">🛒</button>
+</div>
+
+<input class="search" placeholder="Search battery..." onkeyup="searchProduct(this.value)">
+
+<!-- SLIDER -->
+<div class="slider">
+<div class="track">
+<div class="slide">OSAKA</div>
+<div class="slide">AGS</div>
+<div class="slide">PHOENIX</div>
+<div class="slide">EXIDE</div>
+<div class="slide">VOLTA</div>
+<div class="slide">DAEWOO</div>
+</div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories">
+<div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Solar Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Dry Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
 </div>
 
 <!-- BRANDS -->
@@ -120,55 +204,66 @@ box-shadow:0 0 10px #ddd;
 
 </div>
 
-<!-- CATEGORIES -->
-<div class="categories">
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Solar Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Dry Batteries</p></div>
-<div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
-</div>
-
 <!-- PRODUCTS -->
 <div id="products" class="products">
-<h2 id="brandTitle" style="text-align:center;"></h2>
-
-<div class="grid" id="productList"></div>
+<h2 id="title"></h2>
+<div id="list" class="grid"></div>
 </div>
+
+<a class="whatsapp" href="#" onclick="sendCart()">💬</a>
 
 <script>
 
-let data = {
-osaka: ["NS60","TA-1800","TA-1200","TA-1500"],
-ags: ["GR-65","SP-180","GX-175","GX-200"],
-phoenix: ["XP-50","XP-70","PX-150"],
-exide: ["N55","N65","HP150"],
-volta: ["T-125","T-150"],
-daewoo: ["DL-50","DL-60"]
+let cart=[];
+
+let data={
+osaka:["NS60","TA-1200","TA-1500","TA-1800"],
+ags:["GR-65","SP-180","GX-175"],
+phoenix:["XP-50","XP-70"],
+exide:["N55","N65"],
+volta:["T-125","T-150"],
+daewoo:["DL-50","DL-60"]
 };
 
-function showBrand(brand){
+function showBrand(b){
 document.getElementById("brands").style.display="none";
 document.getElementById("products").style.display="block";
+document.getElementById("title").innerText=b.toUpperCase();
 
-document.getElementById("brandTitle").innerText = brand.toUpperCase();
-
-let list = document.getElementById("productList");
-list.innerHTML = "";
-
-data[brand].forEach(model=>{
-list.innerHTML += `
+let html="";
+data[b].forEach(p=>{
+html+=`
 <div class="card">
 <img src="https://via.placeholder.com/150">
-<h3>${brand.toUpperCase()} ${model}</h3>
-</div>
-`;
+<h3>${b.toUpperCase()} ${p}</h3>
+<button class="btn" onclick="addCart('${b} ${p}')">Add</button>
+</div>`;
 });
+
+document.getElementById("list").innerHTML=html;
 }
 
-function goHome(){
-document.getElementById("brands").style.display="flex";
-document.getElementById("products").style.display="none";
+function addCart(p){
+cart.push(p);
+alert("Added: "+p);
+}
+
+function showCart(){
+alert(cart.length?cart.join("\n"):"Cart empty");
+}
+
+function sendCart(){
+if(cart.length==0){alert("Cart empty");return;}
+let msg="Order:\n"+cart.join("\n");
+window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
+}
+
+function searchProduct(q){
+q=q.toLowerCase();
+let cards=document.querySelectorAll(".card");
+cards.forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(q)?"block":"none";
+});
 }
 
 </script>
