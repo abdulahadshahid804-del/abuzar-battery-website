@@ -20,11 +20,7 @@ align-items:center;padding:15px;background:white;
 font-size:22px;font-weight:bold;color:#0b3d91;cursor:pointer;
 }
 
-.btn{
-background:#0b3d91;color:white;padding:8px 15px;
-border:none;cursor:pointer;margin:5px;
-}
-
+/* SEARCH */
 .search{
 text-align:center;padding:10px;
 }
@@ -32,24 +28,48 @@ text-align:center;padding:10px;
 padding:8px;width:60%;
 }
 
-/* BRANDS */
-.brands{
-display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
+/* ANIMATION SLIDER */
+.slider{
+overflow:hidden;background:white;padding:10px;
 }
-.brand{
-background:white;width:130px;margin:10px;padding:10px;
-text-align:center;border-radius:10px;box-shadow:0 0 10px #ddd;
-cursor:pointer;
+.track{
+display:flex;animation:scroll 12s linear infinite;
+}
+.slide{
+min-width:120px;text-align:center;
+font-weight:bold;color:#0b3d91;
+}
+@keyframes scroll{
+0%{transform:translateX(0);}
+100%{transform:translateX(-50%);}
 }
 
-/* CATEGORIES */
+/* CATEGORIES (UPPER) */
 .categories{
 display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
 }
 .cat{
 background:white;width:140px;margin:10px;padding:10px;
-text-align:center;border-radius:10px;box-shadow:0 0 10px #ddd;
+text-align:center;border-radius:10px;
+box-shadow:0 0 10px #ddd;
+transition:0.3s;
 }
+.cat:hover{transform:scale(1.05);}
+.cat img{width:80px;}
+
+/* BRANDS (NICHE) */
+.brands{
+display:flex;flex-wrap:wrap;justify-content:center;padding:15px;
+}
+.brand{
+background:white;width:130px;margin:10px;padding:10px;
+text-align:center;border-radius:10px;
+box-shadow:0 0 10px #ddd;
+cursor:pointer;
+transition:0.3s;
+}
+.brand:hover{transform:scale(1.1);}
+.brand img{width:90px;}
 
 /* PRODUCTS */
 .products{display:none;padding:20px;}
@@ -58,9 +78,18 @@ display:flex;flex-wrap:wrap;justify-content:center;
 }
 .card{
 background:white;width:200px;margin:10px;padding:10px;
-text-align:center;border-radius:10px;box-shadow:0 0 10px #ddd;
+text-align:center;border-radius:10px;
+box-shadow:0 0 10px #ddd;
+transition:0.3s;
 }
+.card:hover{transform:scale(1.05);}
 .card img{width:100%;}
+
+/* BUTTON */
+.btn{
+background:#0b3d91;color:white;padding:8px 15px;
+border:none;cursor:pointer;margin:5px;
+}
 
 /* WHATSAPP */
 .whatsapp{
@@ -87,23 +116,47 @@ text-decoration:none;
 <input type="text" id="search" placeholder="Search battery..." onkeyup="searchProduct()">
 </div>
 
-<!-- BRANDS -->
-<div id="brands" class="brands">
-<div class="brand" onclick="showBrand('osaka')">OSAKA</div>
-<div class="brand" onclick="showBrand('ags')">AGS</div>
-<div class="brand" onclick="showBrand('phoenix')">PHOENIX</div>
-<div class="brand" onclick="showBrand('exide')">EXIDE</div>
-<div class="brand" onclick="showBrand('volta')">VOLTA</div>
-<div class="brand" onclick="showBrand('daewoo')">DAEWOO</div>
+<!-- 🔥 ANIMATION -->
+<div class="slider">
+<div class="track">
+<div class="slide">OSAKA</div>
+<div class="slide">AGS</div>
+<div class="slide">PHOENIX</div>
+<div class="slide">EXIDE</div>
+<div class="slide">VOLTA</div>
+<div class="slide">DAEWOO</div>
+</div>
 </div>
 
-<!-- CATEGORIES -->
+<!-- 🔥 CATEGORIES (UPPER NOW) -->
 <div class="categories">
-<div class="cat">UPS Batteries</div>
-<div class="cat">Car Batteries</div>
-<div class="cat">Solar Batteries</div>
-<div class="cat">Dry Batteries</div>
-<div class="cat">Deep Cycle Batteries</div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Solar Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Dry Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
+</div>
+
+<!-- 🔥 BRANDS (NICHE SHIFT) -->
+<div id="brands" class="brands">
+<div class="brand" onclick="showBrand('osaka')">
+<img src="https://via.placeholder.com/100"><p>OSAKA</p>
+</div>
+<div class="brand" onclick="showBrand('ags')">
+<img src="https://via.placeholder.com/100"><p>AGS</p>
+</div>
+<div class="brand" onclick="showBrand('phoenix')">
+<img src="https://via.placeholder.com/100"><p>PHOENIX</p>
+</div>
+<div class="brand" onclick="showBrand('exide')">
+<img src="https://via.placeholder.com/100"><p>EXIDE</p>
+</div>
+<div class="brand" onclick="showBrand('volta')">
+<img src="https://via.placeholder.com/100"><p>VOLTA</p>
+</div>
+<div class="brand" onclick="showBrand('daewoo')">
+<img src="https://via.placeholder.com/100"><p>DAEWOO</p>
+</div>
 </div>
 
 <!-- PRODUCTS -->
@@ -120,12 +173,12 @@ text-decoration:none;
 let cart=[];
 
 let data={
-osaka:["NS40","NS60","NS65","TA-1200","TA-1500","TA-1800"],
-ags:["GR-46","GR-65","GR-70","SP-180","GX-175","GX-200"],
-phoenix:["XP-50","XP-70","PX-150","PX-200T"],
-exide:["N55","N65","HP150","TR2500"],
-volta:["T-125","T-150","T-180"],
-daewoo:["DL-50","DL-60","DLS-65"]
+osaka:["NS40","NS60","TA-1200","TA-1500"],
+ags:["GR-65","SP-180"],
+phoenix:["XP-50","XP-70"],
+exide:["N55","N65"],
+volta:["T-125","T-150"],
+daewoo:["DL-50","DL-60"]
 };
 
 function showBrand(brand){
@@ -159,12 +212,12 @@ document.getElementById("products").style.display="none";
 
 function addToCart(p){
 cart.push(p);
-alert(p+" added to cart 🛒");
+alert(p+" added 🛒");
 }
 
 function showCart(){
 if(cart.length===0) alert("Cart empty");
-else alert("Cart:\n"+cart.join("\n"));
+else alert(cart.join("\n"));
 }
 
 function buyNow(product){
@@ -174,7 +227,7 @@ window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
 
 function sendCartWhatsApp(){
 if(cart.length===0){alert("Cart empty");return;}
-let msg="Assalamualaikum, mujhe ye batteries chahiye:\n\n"+cart.join("\n");
+let msg="Order:\n"+cart.join("\n");
 window.open("https://wa.me/923014681059?text="+encodeURIComponent(msg));
 }
 
