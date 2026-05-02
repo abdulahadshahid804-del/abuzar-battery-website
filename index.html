@@ -1,43 +1,233 @@
-<!-- HEADER -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Abuzar Battery Service</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#e3f2fd,#ffffff);
+}
+
+/* TOP BAR */
+.topbar{
+background:#0b3d91;
+color:white;
+padding:8px;
+text-align:right;
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+padding:15px;
+background:white;
+box-shadow:0 2px 10px #ccc;
+}
+
+.logo{
+font-weight:bold;
+color:#0b3d91;
+cursor:pointer;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:40px;
+background:white;
+}
+.hero h1{color:#0b3d91;}
+.hero p{color:#555;}
+
+/* BUTTON */
+.btn{
+background:#0b3d91;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* BRAND ANIMATION (SMOOTH) */
+.slider{
+overflow:hidden;
+background:white;
+padding:10px;
+}
+.track{
+display:flex;
+gap:40px;
+animation:move 15s linear infinite;
+}
+.slide{
+font-weight:bold;
+color:#0b3d91;
+}
+@keyframes move{
+0%{transform:translateX(100%);}
+100%{transform:translateX(-100%);}
+}
+
+/* CATEGORY */
+.categories{
+padding:20px;
+text-align:center;
+}
+.grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+.card{
+background:white;
+width:200px;
+margin:10px;
+padding:15px;
+border-radius:15px;
+box-shadow:0 0 15px #ddd;
+transition:0.4s;
+cursor:pointer;
+}
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 0 25px #bbb;
+}
+.card img{width:100%;}
+
+/* PRODUCTS */
+.products{
+padding:20px;
+}
+.product-card{
+background:white;
+width:200px;
+margin:10px;
+padding:10px;
+border-radius:15px;
+box-shadow:0 0 15px #ddd;
+transition:0.3s;
+}
+.product-card:hover{
+transform:scale(1.05);
+}
+
+/* CART */
+.cart-box{
+position:fixed;
+right:-300px;
+top:0;
+width:300px;
+height:100%;
+background:white;
+box-shadow:-5px 0 10px #ccc;
+padding:10px;
+transition:0.4s;
+}
+.cart-box.active{right:0;}
+
+</style>
+</head>
+
+<body>
+
 <div class="topbar">
 📍 Gulshan-e-Ravi Lahore | 📞 +92 301 4681059
 </div>
 
 <div class="header">
-<div class="logo" onclick="goHome()">Abuzar Battery 🔋</div>
+<div class="logo" onclick="goHome()">ABUZAR BATTERY 🔋</div>
 <button class="btn" onclick="toggleCart()">🛒 Cart</button>
 </div>
 
-<!-- CATEGORY SECTION (WAPAS ADD) -->
+<!-- HERO -->
+<div class="hero">
+<h1>Power That Never Stops ⚡</h1>
+<p>Best Batteries for Car, UPS, Solar & Heavy Systems</p>
+</div>
+
+<!-- BRAND ANIMATION -->
+<div class="slider">
+<div class="track">
+<div class="slide">AGS</div>
+<div class="slide">OSAKA</div>
+<div class="slide">PHOENIX</div>
+<div class="slide">VOLTA</div>
+<div class="slide">EXIDE</div>
+<div class="slide">UNIQUE</div>
+</div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories">
+<h2>Battery Categories</h2>
+
+<div class="grid">
+<div class="card"><img src="https://via.placeholder.com/150"><h3>UPS Battery</h3></div>
+<div class="card"><img src="https://via.placeholder.com/150"><h3>Car Battery</h3></div>
+<div class="card"><img src="https://via.placeholder.com/150"><h3>Solar Battery</h3></div>
+<div class="card"><img src="https://via.placeholder.com/150"><h3>Dry Battery</h3></div>
+<div class="card"><img src="https://via.placeholder.com/150"><h3>Deep Cycle Battery</h3></div>
+</div>
+</div>
+
+<!-- PRODUCTS -->
 <div class="products">
-<h2 style="text-align:center;">Battery Categories</h2>
+<h2 style="text-align:center;">Popular Products</h2>
 
 <div class="grid">
 
-<div class="card">
+<div class="product-card">
 <img src="https://via.placeholder.com/150">
-<h3>UPS Battery</h3>
+<h3>AGS GR-65</h3>
+<button class="btn" onclick="addToCart('AGS GR-65')">Add to Cart</button>
 </div>
 
-<div class="card">
+<div class="product-card">
 <img src="https://via.placeholder.com/150">
-<h3>Car Battery</h3>
+<h3>Osaka NS60</h3>
+<button class="btn" onclick="addToCart('Osaka NS60')">Add to Cart</button>
 </div>
 
-<div class="card">
+<div class="product-card">
 <img src="https://via.placeholder.com/150">
-<h3>Solar Battery</h3>
-</div>
-
-<div class="card">
-<img src="https://via.placeholder.com/150">
-<h3>Dry Battery</h3>
-</div>
-
-<div class="card">
-<img src="https://via.placeholder.com/150">
-<h3>Deep Cycle Battery</h3>
+<h3>Phoenix XP-70</h3>
+<button class="btn" onclick="addToCart('Phoenix XP-70')">Add to Cart</button>
 </div>
 
 </div>
 </div>
+
+<!-- CART -->
+<div id="cart" class="cart-box"></div>
+
+<script>
+let cart=[];
+
+function addToCart(p){
+cart.push(p);
+updateCart();
+alert(p+" added 🛒");
+}
+
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
+
+function updateCart(){
+let c=document.getElementById("cart");
+c.innerHTML="<h3>Your Cart</h3>";
+cart.forEach(i=>{c.innerHTML+="<p>"+i+"</p>";});
+}
+
+function goHome(){
+location.reload();
+}
+</script>
+
+</body>
+</html>
