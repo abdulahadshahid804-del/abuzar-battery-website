@@ -1,149 +1,177 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Abuzar Battery Service</title>
+<title>Abuzar Battery Service</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: #f5f5f5;
-        }
+<style>
+body{margin:0;font-family:Arial;background:#f4f7fb;}
 
-        /* Navbar */
-        .navbar {
-            background: #111;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
+.header{
+display:flex;justify-content:space-between;
+padding:15px;background:white;
+}
 
-        /* Slider */
-        .slider {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            position: relative;
-            background: #000;
-        }
+.logo{font-size:22px;font-weight:bold;color:#0b3d91;}
 
-        .slides {
-            display: flex;
-            width: 300%;
-            animation: slide 9s infinite;
-        }
+.btn{background:#0b3d91;color:white;padding:8px 15px;border:none;cursor:pointer;}
 
-        .slide {
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 30px;
-            padding-top: 100px;
-        }
+/* BRAND GRID */
+.brands{
+display:flex;flex-wrap:wrap;justify-content:center;
+padding:20px;
+}
 
-        .slide:nth-child(1) { background: red; }
-        .slide:nth-child(2) { background: green; }
-        .slide:nth-child(3) { background: blue; }
+.brand{
+background:white;
+width:140px;
+margin:10px;
+padding:10px;
+text-align:center;
+border-radius:10px;
+box-shadow:0 0 10px #ddd;
+cursor:pointer;
+}
 
-        @keyframes slide {
-            0% { margin-left: 0; }
-            33% { margin-left: -100%; }
-            66% { margin-left: -200%; }
-            100% { margin-left: 0; }
-        }
+.brand img{width:80px;}
 
-        /* Products */
-        .products {
-            padding: 20px;
-            text-align: center;
-        }
+/* CATEGORIES */
+.categories{
+display:flex;flex-wrap:wrap;justify-content:center;
+padding:20px;
+}
 
-        .card {
-            display: inline-block;
-            width: 200px;
-            background: white;
-            margin: 10px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px gray;
-        }
+.cat{
+background:white;
+width:150px;
+margin:10px;
+padding:10px;
+text-align:center;
+border-radius:10px;
+box-shadow:0 0 10px #ddd;
+}
 
-        .btn {
-            background: green;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-        }
+.cat img{width:80px;}
 
-        .btn:hover {
-            background: darkgreen;
-        }
+/* PRODUCTS */
+.products{
+padding:20px;
+display:none;
+}
 
-        /* Footer */
-        .footer {
-            background: #111;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-    </style>
+.grid{
+display:flex;flex-wrap:wrap;justify-content:center;
+}
+
+.card{
+background:white;
+width:200px;
+margin:10px;
+padding:10px;
+text-align:center;
+border-radius:10px;
+box-shadow:0 0 10px #ddd;
+}
+
+.card img{width:100%;}
+
+</style>
 </head>
 
 <body>
 
-    <div class="navbar">
-        Abuzar Battery Service
-    </div>
+<div class="header">
+<div class="logo">ABUZAR BATTERY 🔋</div>
+<button class="btn" onclick="goHome()">🏠 Home</button>
+</div>
 
-    <!-- Slider -->
-    <div class="slider">
-        <div class="slides">
-            <div class="slide">Osaka Battery 🔋</div>
-            <div class="slide">AGS Battery 🔋</div>
-            <div class="slide">Phoenix Battery 🔋</div>
-        </div>
-    </div>
+<!-- BRANDS -->
+<div id="brands" class="brands">
 
-    <!-- Products -->
-    <div class="products">
-        <h2>Our Batteries</h2>
+<div class="brand" onclick="showBrand('osaka')">
+<img src="https://via.placeholder.com/100">
+<p>OSAKA</p>
+</div>
 
-        <div class="card">
-            <h3>Osaka</h3>
-            <button class="btn" onclick="order()">Order Now</button>
-        </div>
+<div class="brand" onclick="showBrand('ags')">
+<img src="https://via.placeholder.com/100">
+<p>AGS</p>
+</div>
 
-        <div class="card">
-            <h3>AGS</h3>
-            <button class="btn" onclick="order()">Order Now</button>
-        </div>
+<div class="brand" onclick="showBrand('phoenix')">
+<img src="https://via.placeholder.com/100">
+<p>PHOENIX</p>
+</div>
 
-        <div class="card">
-            <h3>Phoenix</h3>
-            <button class="btn" onclick="order()">Order Now</button>
-        </div>
+<div class="brand" onclick="showBrand('exide')">
+<img src="https://via.placeholder.com/100">
+<p>EXIDE</p>
+</div>
 
-    </div>
+<div class="brand" onclick="showBrand('volta')">
+<img src="https://via.placeholder.com/100">
+<p>VOLTA</p>
+</div>
 
-    <!-- Contact -->
-    <div class="footer">
-        📍 Gulshan-e-Ravi A Block, Lahore <br>
-        📞 03281059
-    </div>
+<div class="brand" onclick="showBrand('daewoo')">
+<img src="https://via.placeholder.com/100">
+<p>DAEWOO</p>
+</div>
 
-    <script>
-        function order() {
-            alert("Order feature coming soon 😄");
-        }
-    </script>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories">
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Car Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>UPS Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Solar Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Dry Batteries</p></div>
+<div class="cat"><img src="https://via.placeholder.com/80"><p>Deep Cycle Batteries</p></div>
+</div>
+
+<!-- PRODUCTS -->
+<div id="products" class="products">
+<h2 id="brandTitle" style="text-align:center;"></h2>
+
+<div class="grid" id="productList"></div>
+</div>
+
+<script>
+
+let data = {
+osaka: ["NS60","TA-1800","TA-1200","TA-1500"],
+ags: ["GR-65","SP-180","GX-175","GX-200"],
+phoenix: ["XP-50","XP-70","PX-150"],
+exide: ["N55","N65","HP150"],
+volta: ["T-125","T-150"],
+daewoo: ["DL-50","DL-60"]
+};
+
+function showBrand(brand){
+document.getElementById("brands").style.display="none";
+document.getElementById("products").style.display="block";
+
+document.getElementById("brandTitle").innerText = brand.toUpperCase();
+
+let list = document.getElementById("productList");
+list.innerHTML = "";
+
+data[brand].forEach(model=>{
+list.innerHTML += `
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>${brand.toUpperCase()} ${model}</h3>
+</div>
+`;
+});
+}
+
+function goHome(){
+document.getElementById("brands").style.display="flex";
+document.getElementById("products").style.display="none";
+}
+
+</script>
 
 </body>
 </html>
-<h1>Abuzar Battery Service</h1>
-
-<img src="battery1.jpg" width="200">
-
-<p>Best Car & UPS Batteries in Lahore</p>
