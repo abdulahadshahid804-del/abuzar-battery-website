@@ -40,7 +40,7 @@ text-align:center;
 margin-bottom:10px;
 }
 
-/* ANIMATION BAR (FIXED SMOOTH) */
+/* ANIMATION BAR */
 .slider{overflow:hidden;background:white;padding:10px;}
 .track{
 display:flex;
@@ -173,7 +173,6 @@ text-decoration:none;
 <input type="text" id="search" placeholder="Search battery..." onkeyup="searchProduct()">
 </div>
 
-<!-- VIEW BUTTONS -->
 <div class="view-btns">
 <button class="btn" onclick="setGrid()">Grid View</button>
 <button class="btn" onclick="setList()">List View</button>
@@ -233,13 +232,23 @@ text-decoration:none;
 let cart=[];
 
 let data={
-osaka:["NS40","NS60","TA-1200","TA-1500"],
-ags:["GR-65","SP-180"],
-phoenix:["XP-50","XP-70"],
-exide:["N55","N65"],
-volta:["T-125","T-150"],
-daewoo:["DL-50","DL-60"]
+osaka:["NS40","NS60","NS70","CR65","TA-1200","TA-1500","TA-1800"],
+ags:["GR-46","GR-65","GR-87","SP-100","SP-180","GX-200"],
+phoenix:["XP-50","XP-60","XP-70","TX-1100","TX-1400"],
+exide:["N40","N50","N55","N65","HP-150"],
+volta:["T-125","T-150","T-180","TA-1600"],
+daewoo:["DL-50","DL-60","DL-70","DIB-100"]
 };
+
+function getImage(brand){
+if(brand==="osaka") return "https://batterymax.pk/wp-content/uploads/2020/08/osaka-battery.jpg";
+if(brand==="ags") return "https://batterymax.pk/wp-content/uploads/2020/08/ags-battery.jpg";
+if(brand==="phoenix") return "https://batterymax.pk/wp-content/uploads/2020/08/phoenix-battery.jpg";
+if(brand==="exide") return "https://batterymax.pk/wp-content/uploads/2020/08/exide-battery.jpg";
+if(brand==="volta") return "https://batterymax.pk/wp-content/uploads/2020/08/volta-battery.jpg";
+if(brand==="daewoo") return "https://batterymax.pk/wp-content/uploads/2020/08/daewoo-battery.jpg";
+return "https://via.placeholder.com/150";
+}
 
 function showBrand(brand){
 document.getElementById("brands").style.display="none";
@@ -253,7 +262,7 @@ list.innerHTML="";
 data[brand].forEach(model=>{
 list.innerHTML+=`
 <div class="card">
-<img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
+<img src="${getImage(brand)}">
 <h3>${brand.toUpperCase()} ${model}</h3>
 <button class="btn" onclick="buyNow('${brand} ${model}')">Buy Now</button>
 <button class="btn" onclick="addToCart('${brand} ${model}')">Add to Cart</button>
@@ -301,7 +310,7 @@ if(full.toLowerCase().includes(input)){
 found=true;
 list.innerHTML+=`
 <div class="card">
-<img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
+<img src="${getImage(brand)}">
 <h3>${full.toUpperCase()}</h3>
 <button class="btn" onclick="buyNow('${full}')">Buy Now</button>
 <button class="btn" onclick="addToCart('${full}')">Add to Cart</button>
