@@ -1,504 +1,425 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base target="_self">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pakistani Brands - Premium Batteries & Electronics</title>
-    <meta name="description" content="Official distributor of Unique, Osaka, AGS, Daewoo, Phoenix, Exide, Volta batteries in Pakistan. Deep cycle, solar, car, UPS, tubular batteries available.">
+    <title>LOL Factory - 3D Racing Game</title>
+    <!-- Tailwind CSS for UI HUD styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#1a56db",
-                        secondary: "#0e9f6e",
-                        accent: "#f59e0b",
-                        dark: "#1f2937",
-                        light: "#f9fafb"
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-up': 'slideUp 0.3s ease-out',
-                        'pulse-slow': 'pulse 2s infinite',
-                        'bounce-slow': 'bounce 1s infinite'
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(10px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        /* Custom animations */
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #0d0e12;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            user-select: none;
         }
-        .whatsapp-btn {
-            animation: bounce-slow 2s infinite;
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
         }
-        .brand-logo {
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        /* Custom glow effects for the factory HUD */
+        .neon-border {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+            border: 2px solid rgba(239, 68, 68, 0.8);
+        }
+        .neon-text {
+            text-shadow: 0 0 8px rgba(243, 244, 246, 0.6);
         }
     </style>
 </head>
-<body class="min-h-screen bg-light font-sans">
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/03014681059" target="_blank" class="whatsapp-btn fixed bottom-6 right-6 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300">
-        <i class="fab fa-whatsapp text-2xl"></i>
-    </a>
+<body>
 
-    <!-- Header -->
-    <header class="bg-dark text-white shadow-lg sticky top-0 z-40">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <!-- Logo and Contact -->
-                <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                    <div class="text-2xl font-bold text-accent">Pakistani Brands</div>
-                    <div class="hidden md:block">
-                        <span class="text-sm">Call: <a href="tel:03014681059" class="text-primary hover:text-accent">03014681059</a></span>
-                        <span class="text-sm ml-4">Location: Gulshan-e-Ravi, Lahore</span>
-                    </div>
-                </div>
-                
-                <!-- Search Bar -->
-                <div class="w-full md:w-auto mb-4 md:mb-0">
-                    <div class="relative">
-                        <input type="text" id="search-input" placeholder="Search batteries..." class="w-full md:w-64 px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-primary">
-                        <button id="search-btn" class="absolute right-2 top-2 text-gray-400 hover:text-white">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Cart and User -->
-                <div class="flex items-center space-x-4">
-                    <button id="cart-btn" class="bg-primary hover:bg-blue-700 px-4 py-2 rounded-lg flex items-center space-x-2">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>Cart (<span id="cart-count">0</span>)</span>
-                    </button>
-                    <button id="view-toggle" class="bg-secondary hover:bg-green-700 px-4 py-2 rounded-lg">
-                        <i class="fas fa-th"></i> Grid
-                    </button>
-                </div>
+    <!-- HUD Overlay -->
+    <div class="absolute top-0 left-0 w-full h-full pointer-events-none flex flex-col justify-between p-6 z-10">
+        <!-- Top Row: Logo & High Scores -->
+        <div class="flex justify-between items-start">
+            <div class="bg-gray-900/90 p-4 rounded-lg neon-border pointer-events-auto">
+                <h1 class="text-3xl font-extrabold text-red-500 tracking-wider uppercase m-0">🏭 LOL Factory</h1>
+                <p class="text-xs text-gray-400 mt-1">Navigate the factory floor! Avoid boxes. Hit yellow boosts.</p>
             </div>
             
-            <!-- Navigation -->
-            <nav class="mt-4">
-                <ul id="nav-list" class="flex flex-wrap justify-center space-x-4 md:space-x-8"></ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Hero Banner -->
-        <section class="mb-12 animate-fade-in">
-            <div class="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white shadow-xl">
-                <h1 class="text-3xl md:text-4xl font-bold mb-4">Premium Pakistani Battery Brands</h1>
-                <p class="text-lg mb-6">Official distributor of Unique, Osaka, AGS, Daewoo, Phoenix, Exide, Volta batteries. Quality products for every need.</p>
-                <div class="flex flex-wrap gap-4">
-                    <button class="bg-accent hover:bg-yellow-700 px-6 py-3 rounded-lg font-semibold">Shop Now</button>
-                    <button class="bg-white text-dark hover:bg-gray-200 px-6 py-3 rounded-lg font-semibold">Learn More</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Brands Showcase -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-dark">Our Trusted Brands</h2>
-            <div id="brands-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4"></div>
-        </section>
-
-        <!-- Product Categories -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-dark">Battery Categories</h2>
-            <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6"></div>
-        </section>
-
-        <!-- Products Section -->
-        <section class="mb-12">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-dark">Featured Products</h2>
-                <div class="flex space-x-2">
-                    <button id="back-btn" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </button>
-                    <button id="home-btn" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg">
-                        <i class="fas fa-home"></i> Home
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Products Container -->
-            <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-        </section>
-
-        <!-- Contact Info -->
-        <section class="mb-12 bg-white p-8 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-bold mb-4 text-dark">Contact Information</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">Store Location</h3>
-                    <p class="text-gray-700">Gulshan-e-Ravi, Lahore, Pakistan</p>
-                    <p class="text-gray-700 mt-2">Open: Mon-Sat 9:00 AM - 8:00 PM</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">Contact Details</h3>
-                    <p class="text-gray-700"><i class="fas fa-phone text-primary mr-2"></i> <a href="tel:03014681059" class="hover:text-primary">03014681059</a></p>
-                    <p class="text-gray-700 mt-2"><i class="fab fa-whatsapp text-green-500 mr-2"></i> WhatsApp: 03014681059</p>
-                    <p class="text-gray-700 mt-2"><i class="fas fa-envelope text-accent mr-2"></i> info@pakistanibrands.com</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Quick Links -->
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul id="footer-links"></ul>
-                </div>
-                
-                <!-- Brands -->
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Our Brands</h3>
-                    <ul id="footer-brands"></ul>
-                </div>
-                
-                <!-- Social -->
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/03014681059" target="_blank" class="bg-green-600 hover:bg-green-700 p-3 rounded-full"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                    <p class="mt-4 text-sm">© 2023 Pakistani Brands. All rights reserved.</p>
-                </div>
+            <div class="bg-gray-900/90 p-4 rounded-lg border border-gray-700 text-right">
+                <div class="text-sm text-gray-400">HIGH SCORE</div>
+                <div id="highScoreVal" class="text-2xl font-bold text-yellow-400">0</div>
             </div>
         </div>
-    </footer>
 
-    <!-- Cart Modal -->
-    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-xl p-8 max-w-2xl w-full mx-4 animate-slide-up">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold">Your Cart</h3>
-                <button id="close-cart" class="text-gray-500 hover:text-dark">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
+        <!-- Bottom Row: Speedometer & Controls Info -->
+        <div class="flex justify-between items-end">
+            <!-- Left Side controls guide -->
+            <div class="bg-gray-900/80 p-4 rounded-lg border border-gray-700 text-gray-300 text-xs space-y-1">
+                <p class="font-bold text-red-400 mb-1">CONTROLS:</p>
+                <p>⚡ <span class="font-bold">W / Up Arrow:</span> Accelerate</p>
+                <p>🛑 <span class="font-bold">S / Down Arrow:</span> Reverse / Brake</p>
+                <p>🔄 <span class="font-bold">A/D / Left/Right:</span> Steer</p>
             </div>
-            <div id="cart-items" class="mb-6"></div>
-            <div class="flex justify-between">
-                <button class="bg-gray-300 hover:bg-gray-400 px-6 py-3 rounded-lg">Clear Cart</button>
-                <button class="bg-primary hover:bg-blue-700 px-6 py-3 rounded-lg text-white">Proceed to Checkout</button>
+
+            <!-- Middle Speedometer & Score -->
+            <div class="flex flex-col items-center bg-gray-900/90 p-6 rounded-xl neon-border min-w-[200px]">
+                <div class="text-xs text-gray-400 uppercase tracking-widest">Score</div>
+                <div id="scoreVal" class="text-3xl font-black text-white neon-text">0</div>
+                <div class="w-full bg-gray-800 h-1 my-2 rounded-full overflow-hidden">
+                    <div id="speedBar" class="bg-red-500 h-full transition-all duration-75" style="width: 0%"></div>
+                </div>
+                <div class="text-xs text-gray-400"><span id="speedVal" class="text-lg font-bold text-red-400">0</span> KM/H</div>
             </div>
+
+            <!-- Reset Button pointer-events-auto -->
+            <button id="resetBtn" class="pointer-events-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:scale-105 active:scale-95 transition-transform">
+                RESET CAR
+            </button>
         </div>
     </div>
 
+    <!-- Three.js Library via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <script>
-        // Data Layer
-        const navigationItems = [
-            { "label": "Home", "href": "#home", "icon": "fas fa-home" },
-            { "label": "Deep Cycle", "href": "#deep-cycle", "icon": "fas fa-battery-full" },
-            { "label": "Solar", "href": "#solar", "icon": "fas fa-sun" },
-            { "label": "Car", "href": "#car", "icon": "fas fa-car" },
-            { "label": "UPS", "href": "#ups", "icon": "fas fa-plug" },
-            { "label": "Tubular", "href": "#tubular", "icon": "fas fa-cog" },
-            { "label": "All Products", "href": "#all", "icon": "fas fa-th" },
-            { "label": "Contact", "href": "#contact", "icon": "fas fa-phone" }
+        // --- GAME STATE ---
+        const game = {
+            score: 0,
+            highScore: localStorage.getItem('lol_highScore') || 0,
+            speed: 0,
+            maxSpeed: 0.8,
+            maxReverseSpeed: -0.2,
+            acceleration: 0.015,
+            deceleration: 0.008,
+            friction: 0.005,
+            steerSpeed: 0.04,
+            carRotation: 0,
+            boostActive: false,
+            boostTimer: 0
+        };
+
+        document.getElementById('highScoreVal').innerText = game.highScore;
+
+        // --- KEYBOARD CONTROLS ---
+        const keys = { w: false, a: false, s: false, d: false, ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
+        window.addEventListener('keydown', (e) => { if (e.key in keys) keys[e.key] = true; });
+        window.addEventListener('keyup', (e) => { if (e.key in keys) keys[e.key] = false; });
+
+        // --- SETUP THREE.JS SCENE ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0b10);
+        scene.fog = new THREE.FogExp2(0x0a0b10, 0.015);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // --- LIGHTING ---
+        const ambientLight = new THREE.AmbientLight(0x111122, 1.5);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xff0055, 1.5);
+        dirLight.position.set(50, 100, 50);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 1024;
+        dirLight.shadow.mapSize.height = 1024;
+        scene.add(dirLight);
+
+        const pointLight = new THREE.PointLight(0x00ffff, 2, 100);
+        pointLight.position.set(0, 20, 0);
+        scene.add(pointLight);
+
+        // --- ENVIRONMENT: THE LOL FACTORY FLOOR ---
+        // Floor Grid Floor
+        const floorGeo = new THREE.PlaneGeometry(300, 300);
+        const floorMat = new THREE.MeshStandardMaterial({ 
+            color: 0x1a1c23, 
+            roughness: 0.8, 
+            metalness: 0.2 
+        });
+        const floor = new THREE.Mesh(floorGeo, floorMat);
+        floor.rotation.x = -Math.PI / 2;
+        floor.receiveShadow = true;
+        scene.add(floor);
+
+        // Add a factory grid helper to style the floor
+        const gridHelper = new THREE.GridHelper(300, 60, 0xef4444, 0x2d3748);
+        gridHelper.position.y = 0.01;
+        scene.add(gridHelper);
+
+        // --- FACTORY WALLS ---
+        const wallMat = new THREE.MeshStandardMaterial({ color: 0x0f1115 });
+        const wallGeo = new THREE.BoxGeometry(300, 20, 4);
+        
+        const walls = [];
+        const wallPositions = [
+            { x: 0, z: 150, rotY: 0 },
+            { x: 0, z: -150, rotY: 0 },
+            { x: 150, z: 0, rotY: Math.PI / 2 },
+            { x: -150, z: 0, rotY: Math.PI / 2 }
         ];
 
-        const brands = [
-            { "name": "Unique", "logo": "https://picsum.photos/100?random=1", "desc": "Premium quality batteries" },
-            { "name": "Osaka", "logo": "https://picsum.photos/100?random=2", "desc": "Japanese technology" },
-            { "name": "AGS", "logo": "https://picsum.photos/100?random=3", "desc": "Advanced power solutions" },
-            { "name": "Daewoo", "logo": "https://picsum.photos/100?random=4", "desc": "Korean innovation" },
-            { "name": "Phoenix", "logo": "https://picsum.photos/100?random=5", "desc": "Long-lasting performance" },
-            { "name": "Exide", "logo": "https://picsum.photos/100?random=6", "desc": "Trusted worldwide" },
-            { "name": "Volta", "logo": "https://picsum.photos/100?random=7", "desc": "Energy efficiency" }
+        wallPositions.forEach(pos => {
+            const wall = new THREE.Mesh(wallGeo, wallMat);
+            wall.position.set(pos.x, 10, pos.z);
+            wall.rotation.y = pos.rotY;
+            scene.add(wall);
+            walls.push(wall);
+        });
+
+        // --- THE PLAYER CAR (assembled from primitives) ---
+        const carGroup = new THREE.Group();
+        
+        // Body (Red chassis)
+        const bodyGeo = new THREE.BoxGeometry(2, 0.8, 4);
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0xef4444, metalness: 0.8, roughness: 0.2 });
+        const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+        bodyMesh.position.y = 0.6;
+        bodyMesh.castShadow = true;
+        carGroup.add(bodyMesh);
+
+        // Cabin (Glass/Top area)
+        const cabinGeo = new THREE.BoxGeometry(1.4, 0.6, 1.8);
+        const cabinMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.9, roughness: 0.1 });
+        const cabinMesh = new THREE.Mesh(cabinGeo, cabinMat);
+        cabinMesh.position.set(0, 1.1, -0.2);
+        cabinMesh.castShadow = true;
+        carGroup.add(cabinMesh);
+
+        // Spoiler
+        const spoilerGeo = new THREE.BoxGeometry(2.2, 0.1, 0.5);
+        const spoilerMesh = new THREE.Mesh(spoilerGeo, bodyMat);
+        spoilerMesh.position.set(0, 1.3, 1.8);
+        spoilerMesh.castShadow = true;
+        carGroup.add(spoilerMesh);
+
+        // Spoiler Mounts
+        const mountGeo = new THREE.BoxGeometry(0.1, 0.5, 0.1);
+        const m1 = new THREE.Mesh(mountGeo, bodyMat);
+        m1.position.set(0.8, 1.05, 1.8);
+        const m2 = m1.clone();
+        m2.position.x = -0.8;
+        carGroup.add(m1, m2);
+
+        // Wheels
+        const wheelGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.4, 12);
+        const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9 });
+        wheelGeo.rotateZ(Math.PI / 2);
+
+        const wheels = [
+            { x: -1.1, y: 0.5, z: -1.2 },
+            { x: 1.1, y: 0.5, z: -1.2 },
+            { x: -1.1, y: 0.5, z: 1.2 },
+            { x: 1.1, y: 0.5, z: 1.2 }
         ];
 
-        const categories = [
-            { "name": "Deep Cycle Battery", "icon": "fas fa-battery-full", "color": "bg-blue-100", "count": 12 },
-            { "name": "Solar Battery", "icon": "fas fa-sun", "color": "bg-yellow-100", "count": 8 },
-            { "name": "Car Battery", "icon": "fas fa-car", "color": "bg-red-100", "count": 15 },
-            { "name": "UPS Battery", "icon": "fas fa-plug", "color": "bg-green-100", "count": 10 },
-            { "name": "Tubular Battery", "icon": "fas fa-cog", "color": "bg-purple-100", "count": 6 }
-        ];
+        const wheelMeshes = [];
+        wheels.forEach(wPos => {
+            const wMesh = new THREE.Mesh(wheelGeo, wheelMat);
+            wMesh.position.set(wPos.x, wPos.y, wPos.z);
+            wMesh.castShadow = true;
+            carGroup.add(wMesh);
+            wheelMeshes.push(wMesh);
+        });
 
-        const products = [
-            { 
-                "id": 1, 
-                "name": "Unique Deep Cycle 200Ah", 
-                "brand": "Unique", 
-                "category": "Deep Cycle", 
-                "price": 18500, 
-                "image": "https://picsum.photos/400/300?random=8", 
-                "rating": 4.5, 
-                "description": "High capacity deep cycle battery for solar systems"
-            },
-            { 
-                "id": 2, 
-                "name": "Osaka Solar Battery 150Ah", 
-                "brand": "Osaka", 
-                "category": "Solar", 
-                "price": 13500, 
-                "image": "https://picsum.photos/400/300?random=9", 
-                "rating": 4.7, 
-                "description": "Premium solar battery with long lifespan"
-            },
-            { 
-                "id": 3, 
-                "name": "AGS Car Battery 60Ah", 
-                "brand": "AGS", 
-                "category": "Car", 
-                "price": 8500, 
-                "image": "https://picsum.photos/400/300?random=10", 
-                "rating": 4.3, 
-                "description": "High-performance car battery for all vehicles"
-            },
-            { 
-                "id": 4, 
-                "name": "Daewoo UPS Battery 12V", 
-                "brand": "Daewoo", 
-                "category": "UPS", 
-                "price": 6500, 
-                "image": "https://picsum.photos/400/300?random=11", 
-                "rating": 4.4, 
-                "description": "Reliable UPS battery for backup power"
-            },
-            { 
-                "id": 5, 
-                "name": "Phoenix Tubular 200Ah", 
-                "brand": "Phoenix", 
-                "category": "Tubular", 
-                "price": 22000, 
-                "image": "https://picsum.photos/400/300?random=12", 
-                "rating": 4.8, 
-                "description": "Advanced tubular battery for heavy-duty applications"
-            },
-            { 
-                "id": 6, 
-                "name": "Exide Solar 120Ah", 
-                "brand": "Exide", 
-                "category": "Solar", 
-                "price": 11000, 
-                "image": "https://picsum.photos/400/300?random=13", 
-                "rating": 4.6, 
-                "description": "Trusted solar battery with excellent performance"
+        scene.add(carGroup);
+        carGroup.position.set(0, 0, 10);
+
+        // --- SPEED BOOST PADS ---
+        const boosts = [];
+        const boostGeo = new THREE.BoxGeometry(6, 0.1, 6);
+        const boostMat = new THREE.MeshStandardMaterial({ color: 0xeab308, emissive: 0xeab308, emissiveIntensity: 1 });
+
+        function createBoost(x, z) {
+            const bMesh = new THREE.Mesh(boostGeo, boostMat);
+            bMesh.position.set(x, 0.05, z);
+            scene.add(bMesh);
+            boosts.push(bMesh);
+        }
+        // Spawn scattered boosts
+        createBoost(-20, -30);
+        createBoost(30, 40);
+        createBoost(-40, 50);
+        createBoost(50, -50);
+        createBoost(0, -80);
+
+        // --- HAZARDS / OBSTACLES (Factory Boxes) ---
+        const obstacles = [];
+        const boxGeo = new THREE.BoxGeometry(4, 4, 4);
+        const boxMat = new THREE.MeshStandardMaterial({ color: 0x4b5563, roughness: 0.6 });
+
+        function createBox(x, z) {
+            const box = new THREE.Mesh(boxGeo, boxMat);
+            box.position.set(x, 2, z);
+            box.castShadow = true;
+            scene.add(box);
+            obstacles.push(box);
+        }
+
+        // Generate an obstacle maze layout
+        for(let i = 0; i < 25; i++) {
+            let rx = (Math.random() - 0.5) * 200;
+            let rz = (Math.random() - 0.5) * 200;
+            // Don't spawn right next to start
+            if (Math.abs(rx) > 10 || Math.abs(rz - 10) > 10) {
+                createBox(rx, rz);
             }
-        ];
-
-        const footerLinks = [
-            { "label": "Privacy Policy", "href": "#privacy" },
-            { "label": "Terms of Service", "href": "#terms" },
-            { "label": "Shipping Info", "href": "#shipping" },
-            { "label": "Return Policy", "href": "#return" },
-            { "label": "FAQ", "href": "#faq" },
-            { "label": "About Us", "href": "#about" }
-        ];
-
-        const footerBrands = [
-            { "name": "Unique", "href": "#unique" },
-            { "name": "Osaka", "href": "#osaka" },
-            { "name": "AGS", "href": "#ags" },
-            { "name": "Daewoo", "href": "#daewoo" },
-            { "name": "Phoenix", "href": "#phoenix" },
-            { "name": "Exide", "href": "#exide" },
-            { "name": "Volta", "href": "#volta" }
-        ];
-
-        // Cart Data
-        let cart = [];
-        let isGridView = true;
-
-        // Reusable Render Functions
-        function renderNavItems(items) {
-            return items.map(item => 
-                "<li class=\"mb-2 md:mb-0\"><a href=\"" + item.href + "\" class=\"flex items-center space-x-2 text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors\"><i class=\"" + item.icon + "\"></i><span>" + item.label + "</span></a></li>"
-            ).join("");
         }
 
-        function renderBrands(items) {
-            return items.map(item => 
-                "<div class=\"bg-white p-4 rounded-lg shadow-md text-center brand-logo\"><img src=\"" + item.logo + "\" alt=\"" + item.name + " logo\" class=\"w-16 h-16 mx-auto mb-2 rounded-full\"><h3 class=\"font-semibold text-dark\">" + item.name + "</h3><p class=\"text-sm text-gray-600\">" + item.desc + "</p></div>"
-            ).join("");
+        // --- PROCEDURAL BACKGROUND MACHINERY ---
+        for (let i = 0; i < 8; i++) {
+            const pillarGeo = new THREE.CylinderGeometry(2, 2, 40, 8);
+            const pillarMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.8 });
+            const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+            pillar.position.set((Math.random() - 0.5) * 280, 20, (Math.random() - 0.5) * 280);
+            scene.add(pillar);
         }
 
-        function renderCategories(items) {
-            return items.map(item => 
-                "<div class=\"" + item.color + " p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow cursor-pointer\"><div class=\"flex items-center justify-between\"><div><i class=\"" + item.icon + " text-2xl text-gray-700\"></i><h3 class=\"font-bold text-lg mt-2 text-dark\">" + item.name + "</h3><p class=\"text-gray-600 mt-1\">" + item.count + " products</p></div><button class=\"bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700\">View</button></div></div>"
-            ).join("");
+        // --- COLLISION LOGIC ---
+        function checkCollision(box1, box2, width1, length1, width2, length2) {
+            return Math.abs(box1.position.x - box2.position.x) < (width1 + width2) / 2 &&
+                   Math.abs(box1.position.z - box2.position.z) < (length1 + length2) / 2;
         }
 
-        function renderProducts(items) {
-            if (isGridView) {
-                return items.map(item => 
-                    "<div class=\"product-card bg-white rounded-xl shadow-md p-6 transition-all duration-300\"><img src=\"" + item.image + "\" alt=\"" + item.name + "\" class=\"w-full h-48 object-cover rounded-lg mb-4\" loading=\"lazy\"><div class=\"flex justify-between items-start mb-2\"><h3 class=\"font-bold text-lg text-dark\">" + item.name + "</h3><span class=\"bg-accent text-white px-2 py-1 rounded text-sm\">" + item.brand + "</span></div><p class=\"text-gray-600 mb-4\">" + item.description + "</p><div class=\"flex items-center mb-4\"><div class=\"text-yellow-500\"><i class=\"fas fa-star\"></i><i class=\"fas fa-star\"></i><i class=\"fas fa-star\"></i><i class=\"fas fa-star\"></i><i class=\"fas fa-star-half-alt\"></i></div><span class=\"ml-2 text-gray-700\">" + item.rating + "</span></div><div class=\"flex justify-between items-center\"><span class=\"font-bold text-xl text-primary\">Rs " + item.price.toLocaleString() + "</span><div class=\"flex space-x-2\"><button class=\"add-to-cart-btn bg-secondary hover:bg-green-700 text-white px-4 py-2 rounded-lg\" data-id=\"" + item.id + "\"><i class=\"fas fa-cart-plus\"></i> Add</button><button class=\"buy-now-btn bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg\" data-id=\"" + item.id + "\"><i class=\"fas fa-bolt\"></i> Buy Now</button></div></div></div>"
-                ).join("");
-            } else {
-                // List view alternative
-                return items.map(item => 
-                    "<div class=\"product-card bg-white rounded-xl shadow-md p-6 transition-all duration-300 flex flex-col md:flex-row\"><div class=\"md:w-1/3 mb-4 md:mb-0\"><img src=\"" + item.image + "\" alt=\"" + item.name + "\" class=\"w-full h-48 object-cover rounded-lg\" loading=\"lazy\"></div><div class=\"md:w-2/3 md:pl-6\"><div class=\"flex justify-between items-start mb-2\"><h3 class=\"font-bold text-lg text-dark\">" + item.name + "</h3><span class=\"bg-accent text-white px-2 py-1 rounded text-sm\">" + item.brand + "</span></div><p class=\"text-gray-600 mb-4\">" + item.description + "</p><div class=\"flex items-center mb-4\"><div class=\"text-yellow-500\"><i class=\"fas fa-star\"></i><i class=\"fas fa-star\"></i><i class=\"fas fa-star\"></i><i class=\"fas fa-star\"></i><i class=\"fas fa-star-half-alt\"></i></div><span class=\"ml-2 text-gray-700\">" + item.rating + "</span></div><div class=\"flex justify-between items-center\"><span class=\"font-bold text-xl text-primary\">Rs " + item.price.toLocaleString() + "</span><div class=\"flex space-x-2\"><button class=\"add-to-cart-btn bg-secondary hover:bg-green-700 text-white px-4 py-2 rounded-lg\" data-id=\"" + item.id + "\"><i class=\"fas fa-cart-plus\"></i> Add</button><button class=\"buy-now-btn bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg\" data-id=\"" + item.id + "\"><i class=\"fas fa-bolt\"></i> Buy Now</button></div></div></div></div>"
-                ).join("");
-            }
-        }
+        // --- GAME LOOP ---
+        const clock = new THREE.Clock();
 
-        function renderFooterLinks(items) {
-            return items.map(item => 
-                "<li class=\"mb-2\"><a href=\"" + item.href + "\" class=\"text-gray-400 hover:text-white\">" + item.label + "</a></li>"
-            ).join("");
-        }
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
 
-        function renderFooterBrands(items) {
-            return items.map(item => 
-                "<li class=\"mb-2\"><a href=\"" + item.href + "\" class=\"text-gray-400 hover:text-white\">" + item.name + "</a></li>"
-            ).join("");
-        }
+            // Handle Input & Physics
+            const isAcc = keys.w || keys.ArrowUp;
+            const isDec = keys.s || keys.ArrowDown;
+            const isLeft = keys.a || keys.ArrowLeft;
+            const isRight = keys.d || keys.ArrowRight;
 
-        function renderCartItems(items) {
-            if (items.length === 0) {
-                return "<p class=\"text-gray-600 text-center py-8\">Your cart is empty</p>";
-            }
-            return items.map(item => 
-                "<div class=\"flex items-center justify-between border-b py-4\"><div class=\"flex items-center space-x-4\"><img src=\"" + item.image + "\" alt=\"" + item.name + "\" class=\"w-16 h-16 rounded-lg\"><div><h4 class=\"font-semibold\">" + item.name + "</h4><p class=\"text-gray-600 text-sm\">" + item.brand + "</p></div></div><div class=\"flex items-center space-x-4\"><span class=\"font-bold text-primary\">Rs " + item.price.toLocaleString() + "</span><button class=\"remove-from-cart text-red-500 hover:text-red-700\" data-id=\"" + item.id + "\"><i class=\"fas fa-trash\"></i></button></div></div>"
-            ).join("");
-        }
-
-        // Initial Rendering
-        document.getElementById("nav-list").innerHTML = renderNavItems(navigationItems);
-        document.getElementById("brands-grid").innerHTML = renderBrands(brands);
-        document.getElementById("categories-grid").innerHTML = renderCategories(categories);
-        document.getElementById("products-container").innerHTML = renderProducts(products);
-        document.getElementById("footer-links").innerHTML = renderFooterLinks(footerLinks);
-        document.getElementById("footer-brands").innerHTML = renderFooterBrands(footerBrands);
-
-        // Event Handlers
-        document.getElementById("view-toggle").addEventListener("click", function() {
-            isGridView = !isGridView;
-            this.innerHTML = isGridView ? "<i class=\"fas fa-th\"></i> Grid" : "<i class=\"fas fa-list\"></i> List";
-            document.getElementById("products-container").innerHTML = renderProducts(products);
-            bindProductEvents();
-        });
-
-        document.getElementById("search-btn").addEventListener("click", function() {
-            const searchTerm = document.getElementById("search-input").value.toLowerCase();
-            const filteredProducts = products.filter(p => 
-                p.name.toLowerCase().includes(searchTerm) || 
-                p.brand.toLowerCase().includes(searchTerm) || 
-                p.category.toLowerCase().includes(searchTerm)
-            );
-            document.getElementById("products-container").innerHTML = renderProducts(filteredProducts);
-            bindProductEvents();
-        });
-
-        document.getElementById("search-input").addEventListener("keyup", function(e) {
-            if (e.key === "Enter") {
-                document.getElementById("search-btn").click();
-            }
-        });
-
-        document.getElementById("cart-btn").addEventListener("click", function() {
-            document.getElementById("cart-modal").classList.remove("hidden");
-            document.getElementById("cart-items").innerHTML = renderCartItems(cart);
-            bindCartEvents();
-        });
-
-        document.getElementById("close-cart").addEventListener("click", function() {
-            document.getElementById("cart-modal").classList.add("hidden");
-        });
-
-        document.getElementById("back-btn").addEventListener("click", function() {
-            alert("Back to previous page");
-        });
-
-        document.getElementById("home-btn").addEventListener("click", function() {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-
-        // Delegated event handling for product buttons
-        function bindProductEvents() {
-            document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
-                btn.addEventListener("click", function() {
-                    const productId = parseInt(this.getAttribute("data-id"));
-                    const product = products.find(p => p.id === productId);
-                    if (product) {
-                        cart.push(product);
-                        document.getElementById("cart-count").textContent = cart.length;
-                        alert(product.name + " added to cart!");
-                    }
-                });
-            });
-
-            document.querySelectorAll(".buy-now-btn").forEach(btn => {
-                btn.addEventListener("click", function() {
-                    const productId = parseInt(this.getAttribute("data-id"));
-                    const product = products.find(p => p.id === productId);
-                    if (product) {
-                        alert("Buying now: " + product.name + " - Rs " + product.price.toLocaleString());
-                    }
-                });
-            });
-        }
-
-        function bindCartEvents() {
-            document.querySelectorAll(".remove-from-cart").forEach(btn => {
-                btn.addEventListener("click", function() {
-                    const productId = parseInt(this.getAttribute("data-id"));
-                    cart = cart.filter(item => item.id !== productId);
-                    document.getElementById("cart-count").textContent = cart.length;
-                    document.getElementById("cart-items").innerHTML = renderCartItems(cart);
-                    bindCartEvents();
-                });
-            });
-        }
-
-        // Initial binding
-        bindProductEvents();
-
-        // Navigation link handling
-        document.addEventListener("click", function(event) {
-            const link = event.target.closest("a[href^='#']");
-            if (!link) return;
-            event.preventDefault();
-            const targetId = link.getAttribute("href");
-            if (targetId === "#home") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            } else if (targetId === "#all") {
-                document.getElementById("products-container").innerHTML = renderProducts(products);
-                bindProductEvents();
-                window.scrollTo({ top: document.getElementById("products-container").offsetTop - 100, behavior: "smooth" });
-            } else {
-                // Filter by category
-                const category = targetId.replace("#", "");
-                if (category && categories.map(c => c.name.toLowerCase().replace(" ", "-")).includes(category)) {
-                    const filteredProducts = products.filter(p => 
-                        p.category.toLowerCase().replace(" ", "-") === category
-                    );
-                    document.getElementById("products-container").innerHTML = renderProducts(filteredProducts);
-                    bindProductEvents();
-                    window.scrollTo({ top: document.getElementById("products-container").offsetTop - 100, behavior: "smooth" });
+            // Speed Boost cooldown/timer
+            if (game.boostActive) {
+                game.boostTimer -= delta;
+                if (game.boostTimer <= 0) {
+                    game.boostActive = false;
+                    game.maxSpeed = 0.8;
                 }
             }
+
+            // Forward / Backward Acceleration
+            if (isAcc) {
+                game.speed += game.acceleration;
+                if (game.speed > game.maxSpeed) game.speed = game.maxSpeed;
+            } else if (isDec) {
+                game.speed -= game.acceleration;
+                if (game.speed < game.maxReverseSpeed) game.speed = game.maxReverseSpeed;
+            } else {
+                // Apply friction
+                if (game.speed > 0) {
+                    game.speed -= game.friction;
+                    if (game.speed < 0) game.speed = 0;
+                } else if (game.speed < 0) {
+                    game.speed += game.friction;
+                    if (game.speed > 0) game.speed = 0;
+                }
+            }
+
+            // Steering (Only turns while moving)
+            if (Math.abs(game.speed) > 0.05) {
+                const dir = game.speed > 0 ? 1 : -1;
+                if (isLeft) game.carRotation += game.steerSpeed * dir;
+                if (isRight) game.carRotation -= game.steerSpeed * dir;
+            }
+
+            // Spin wheels based on movement
+            wheelMeshes.forEach(wheel => {
+                wheel.rotation.x -= game.speed;
+            });
+
+            // Update Car Position
+            carGroup.rotation.y = game.carRotation;
+            
+            // Temporary storage of old position in case of collision
+            const oldPos = carGroup.position.clone();
+
+            carGroup.position.x -= Math.sin(game.carRotation) * game.speed;
+            carGroup.position.z -= Math.cos(game.carRotation) * game.speed;
+
+            // --- BORDERS & COLLISION RESOLUTION ---
+            // Outer wall bounds
+            if (Math.abs(carGroup.position.x) > 146 || Math.abs(carGroup.position.z) > 146) {
+                carGroup.position.copy(oldPos);
+                game.speed = -game.speed * 0.4; // Bounce backward slightly
+            }
+
+            // Obstacle Collisions
+            obstacles.forEach(obs => {
+                if (checkCollision(carGroup, obs, 2.2, 4.2, 4, 4)) {
+                    // Collision occurred! Bounce back
+                    carGroup.position.copy(oldPos);
+                    game.speed = -game.speed * 0.5;
+                    // Flash screen or decrease score
+                    game.score = Math.max(0, game.score - 50);
+                }
+            });
+
+            // Boost Pad Overlap Checks
+            boosts.forEach(boost => {
+                if (checkCollision(carGroup, boost, 2.2, 4.2, 6, 6)) {
+                    if (!game.boostActive) {
+                        game.boostActive = true;
+                        game.boostTimer = 1.5; // boost duration
+                        game.maxSpeed = 1.6; // double speed cap
+                        game.speed = 1.6;
+                        game.score += 200; // bonus points
+                    }
+                }
+            });
+
+            // Dynamic camera trail following behind the car
+            const targetCamOffset = new THREE.Vector3(
+                Math.sin(game.carRotation) * 12,
+                6,
+                Math.cos(game.carRotation) * 12
+            );
+            const targetCamPos = carGroup.position.clone().add(targetCamOffset);
+            camera.position.lerp(targetCamPos, 0.1);
+            camera.lookAt(carGroup.position);
+
+            // Increment simple survival/driving score
+            if (Math.abs(game.speed) > 0.1) {
+                game.score += Math.round(Math.abs(game.speed) * 2);
+            }
+
+            // Keep high score saved
+            if (game.score > game.highScore) {
+                game.highScore = game.score;
+                localStorage.setItem('lol_highScore', game.highScore);
+                document.getElementById('highScoreVal').innerText = game.highScore;
+            }
+
+            // Update UI HUD values
+            document.getElementById('scoreVal').innerText = game.score;
+            const displaySpeed = Math.round(Math.abs(game.speed) * 180);
+            document.getElementById('speedVal').innerText = displaySpeed;
+            document.getElementById('speedBar').style.width = `${Math.min(100, (displaySpeed / 288) * 100)}%`;
+
+            renderer.render(scene, camera);
+        }
+
+        // --- RESET BUTTON FUNCTIONALITY ---
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            carGroup.position.set(0, 0, 10);
+            carGroup.rotation.set(0, 0, 0);
+            game.speed = 0;
+            game.carRotation = 0;
+            game.score = 0;
         });
+
+        // --- WINDOW RESIZE SUPPORT ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Start the engine!
+        animate();
     </script>
 </body>
 </html>
