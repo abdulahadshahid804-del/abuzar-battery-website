@@ -3,315 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cousin Core - Roasting Zone 3D</title>
+    <title>Cousin Core '26 - 3D Voice Roast</title>
     <style>
+        /* === General Styling === */
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: #0d0e15;
+            background: radial-gradient(circle at center, #10101a, #050508);
             color: #fff;
             min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: flex-start;
             overflow-x: hidden;
-            perspective: 1000px;
-        }
-
-        /* 3D Background Grid & Light */
-        .bg-glow {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255,0,128,0.2) 0%, rgba(0,212,255,0.2) 50%, rgba(0,0,0,0) 70%);
-            filter: blur(80px);
-            z-index: -1;
-            animation: pulse 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.8) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) scale(1.2) rotate(360deg); }
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            transform-style: preserve-3d;
+            perspective: 1500px;
+            padding: 50px 0;
         }
 
         h1 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(45deg, #ff007f, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0px 10px 20px rgba(0,0,0,0.5);
-            animation: float 3s ease-in-out infinite;
+            font-size: 3.8rem; margin-bottom: 8px;
+            text-shadow: 0 5px 25px rgba(255, 71, 87, 0.4);
+            color: #ff4757; transform: translateZ(80px);
+            letter-spacing: -2px;
         }
 
-        p.subtitle {
-            color: #a0a0b0;
-            font-size: 1.2rem;
-            margin-top: 10px;
+        .subtitle {
+            color: #a4b0be; margin-bottom: 20px;
+            font-size: 1.4rem; background: rgba(255,255,255,0.08);
+            padding: 8px 25px; border-radius: 25px;
         }
 
-        /* Container & 3D Cards */
+        .instruction {
+            color: #ffa502;
+            margin-bottom: 40px;
+            font-size: 1rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* === 3D Container & Grid === */
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
+            width: 90%;
+            perspective: inherit;
             transform-style: preserve-3d;
         }
 
+        /* === 3D Card Style === */
         .card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
             transform-style: preserve-3d;
-            position: relative;
+            cursor: pointer;
+            backface-visibility: hidden;
         }
 
         .card:hover {
-            transform: translateY(-15px) rotateX(10deg) rotateY(-5deg);
-            box-shadow: 0 25px 45px rgba(0, 212, 255, 0.2);
-            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 50px 90px rgba(255, 71, 87, 0.6);
+            border-color: rgba(255, 71, 87, 0.4);
         }
 
-        .card.boy {
-            border-top: 4px solid #00d4ff;
+        /* Active speaking card effect */
+        .card.speaking {
+            border-color: #00d2d3 !important;
+            box-shadow: 0 0 40px rgba(0, 210, 211, 0.6) !important;
         }
 
-        .card.girl {
-            border-top: 4px solid #ff007f;
-        }
-
-        .avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transform: translateZ(30px);
-        }
-
-        .boy .avatar { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); }
-        .girl .avatar { background: linear-gradient(135deg, #ff0844, #ffb199); }
-
-        .card h2 {
-            font-size: 1.6rem;
-            margin-bottom: 5px;
-            transform: translateZ(20px);
-        }
-
-        .role {
-            font-size: 0.85rem;
-            color: #ff007f;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            transform: translateZ(15px);
-        }
-
-        .boy .role { color: #00d4ff; }
-
-        .roast-box {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 0.95rem;
-            color: #dddddd;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translateZ(25px);
-        }
-
-        /* Interactive Roast Area */
-        .roast-arena {
-            max-width: 800px;
-            margin: 50px auto;
-            background: rgba(20, 20, 35, 0.7);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255,0,128,0.3);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            text-align: center;
-            transform-style: preserve-3d;
-        }
-
-        .arena-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .roast-display {
-            font-size: 1.3rem;
-            color: #ffb199;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            border-left: 4px solid #ff007f;
-            background: rgba(255, 255, 255, 0.03);
-            margin-bottom: 25px;
-            border-radius: 5px;
-        }
-
-        .btn-3d {
-            background: linear-gradient(45deg, #ff007f, #7928ca);
-            border: none;
-            color: white;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
-            transition: all 0.2s ease;
-            transform: translateZ(30px);
-        }
-
-        .btn-3d:hover {
-            transform: translateZ(40px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 0, 128, 0.6);
-        }
-
-        .btn-3d:active {
-            transform: translateZ(20px) scale(0.98);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotateX(0); }
-            50% { transform: translateY(-10px) rotateX(5deg); }
-        }
-
-        footer {
-            text-align: center;
+        /* === Cartoon SVG Container === */
+        .avatar-container {
+            width: 100%;
+            height: 320px;
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 100%);
+            transform: translateZ(40px);
             padding: 20px;
-            color: #666;
-            font-size: 0.9rem;
+        }
+
+        .avatar-svg {
+            width: 100%; height: 100%;
+            max-width: 250px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover .avatar-svg {
+            transform: scale(1.15) translateZ(20px);
+        }
+
+        /* === Info & Dialogue === */
+        .info {
+            padding: 30px;
+            transform-style: preserve-3d;
+            transform: translateZ(60px);
+            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            margin-top: -60px;
+            position: relative;
+        }
+
+        .role-tag {
+            font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 3px; margin-bottom: 15px;
+            display: inline-block; padding: 7px 16px;
+            border-radius: 35px; font-weight: bold;
+        }
+
+        .roaster .role-tag { background: #ff4757; color: white; box-shadow: 0 0 20px rgba(255, 71, 87, 0.6); }
+        .target .role-tag { background: #ffa502; color: black; box-shadow: 0 0 20px rgba(255, 165, 2, 0.6); }
+
+        .name {
+            font-size: 2.5rem; font-weight: 900;
+            margin-bottom: 18px; color: #fff;
+            text-transform: uppercase; letter-spacing: -1px;
+        }
+
+        .dialogue {
+            font-size: 1.1rem; line-height: 1.7;
+            color: #e0e6ed; font-style: italic;
+            border-left: 4px solid rgba(255,255,255,0.2);
+            padding-left: 20px;
+        }
+
+        /* === Background Particles === */
+        .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .part { position: absolute; background: rgba(255, 71, 87, 0.25); border-radius: 50%; animation: floatPart 20s infinite linear; }
+
+        @keyframes floatPart {
+            0% { transform: translateY(0) translateX(0) scale(1) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(80px) scale(0.4) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
+    <div class="particles">
+        <div class="part" style="width: 15px; height: 15px; top: 85%; left: 15%; animation-delay: 0s;"></div>
+        <div class="part" style="width: 30px; height: 30px; top: 65%; left: 85%; animation-delay: 4s; background: rgba(255,165,2,0.15)"></div>
+        <div class="part" style="width: 20px; height: 20px; top: 95%; left: 35%; animation-delay: 8s;"></div>
+    </div>
 
-    <header>
-        <h1>Cousin Core 3D</h1>
-        <p class="subtitle">Ahad & Basit ki taraf se Special Roast Zone 🔥</p>
-    </header>
+    <h1>Cousin Core '26</h1>
+    <p class="subtitle">Cartoon & Voice Edition</p>
+    <p class="instruction">📢 Awaz sun'ne ke liye kisi bhi card par click karein!</p>
 
     <div class="container">
-        <!-- AHAD -->
-        <div class="card boy">
-            <div class="avatar">👑</div>
-            <h2>AHAD</h2>
-            <div class="role">Roast Master 1</div>
-            <div class="roast-box">
-                "Laraib aur Sana jab bhi baat karti hain, brain cells khud ba khud expire ho jate hain!"
+        
+        <!-- === AHAD === -->
+        <div class="card roaster" data-tilt onclick="speakRoast('ahad')">
+            <div class="avatar-container">
+                <svg class="avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="skinAhad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#EAC086"/>
+                            <stop offset="100%" stop-color="#D9A06F"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M20 70 C 20 60, 80 60, 80 70 L 85 100 L 15 100 Z" fill="#333" stroke="#222" stroke-width="1"/>
+                    <path d="M50 70 L 40 100 M 50 70 L 60 100" stroke="#ff4757" stroke-width="2"/>
+                    <rect x="42" y="60" width="16" height="15" fill="url(#skinAhad)"/>
+                    <circle cx="50" cy="45" r="22" fill="url(#skinAhad)" stroke="#B38059" stroke-width="1"/>
+                    <path d="M30 35 L 25 20 L 38 28 L 35 15 L 50 25 L 58 12 L 65 25 L 75 18 L 72 35 Z" fill="#111"/>
+                    <circle cx="42" cy="45" r="3" fill="#111"/><circle cx="58" cy="45" r="3" fill="#111"/>
+                    <path d="M45 55 C 50 58, 60 55, 62 52" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M38 39 L 46 38 M 54 38 L 62 39" stroke="#111" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="info">
+                <span class="role-tag">Cousin / Roaster</span>
+                <div class="name">AHAD</div>
+                <p class="dialogue" id="speech-ahad">"Laraib aur Sana dono samajhti hain ke ye aesthetics ki queen hain, par asal mein inki coding aur hoshiyari dono hi crash ho chuki hain!"</p>
             </div>
         </div>
 
-        <!-- BASIT -->
-        <div class="card boy">
-            <div class="avatar">🔥</div>
-            <h2>BASIT</h2>
-            <div class="role">Roast Master 2</div>
-            <div class="roast-box">
-                "In dono ko lagta hai yeh intelligent hain, bas yehi inka sab se bada meena-bazaar hai!"
+        <!-- === BASIT === -->
+        <div class="card roaster" data-tilt onclick="speakRoast('basit')">
+            <div class="avatar-container">
+                <svg class="avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="skinBasit" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#E5B581"/>
+                            <stop offset="100%" stop-color="#D1956A"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M20 70 C 20 60, 80 60, 80 70 L 85 100 L 15 100 Z" fill="#ff4757" stroke="#e03e4d" stroke-width="1"/>
+                    <circle cx="50" cy="75" r="10" fill="#fff" opacity="0.2"/>
+                    <rect x="42" y="60" width="16" height="15" fill="url(#skinBasit)"/>
+                    <circle cx="50" cy="45" r="22" fill="url(#skinBasit)" stroke="#A6744C" stroke-width="1"/>
+                    <path d="M28 38 C 30 20, 70 20, 72 38 Z" fill="#1a1a1a"/>
+                    <path d="M30 50 C 30 70, 70 70, 70 50 L 65 55 L 50 60 L 35 55 Z" fill="#1a1a1a"/>
+                    <circle cx="41" cy="45" r="7" fill="none" stroke="#fff" stroke-width="1.5"/>
+                    <circle cx="59" cy="45" r="7" fill="none" stroke="#fff" stroke-width="1.5"/>
+                    <path d="M48 45 L 52 45" stroke="#fff" stroke-width="1.5"/>
+                    <path d="M44 58 L 56 58" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="info">
+                <span class="role-tag">Cousin / Roaster</span>
+                <div class="name">BASIT</div>
+                <p class="dialogue" id="speech-basit">"Sana ko lagta hai wo bohot bari influencer hai, aur Laraib uski manager. Tum dono mil kar bhi Ahad aur mere mazaq ka mukabla nahi kar saktin!"</p>
             </div>
         </div>
 
-        <!-- LARAIB -->
-        <div class="card girl">
-            <div class="avatar">👧</div>
-            <h2>LARAIB</h2>
-            <div class="role">Victim #1 (Roasted)</div>
-            <div class="roast-box">
-                "Wi-Fi ka password bhool jaye toh 2 ghante roti hai!"
+        <!-- === LARAIB === -->
+        <div class="card target" data-tilt onclick="speakRoast('laraib')">
+            <div class="avatar-container">
+                <svg class="avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="skinLaraib" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#F3D5AB"/>
+                            <stop offset="100%" stop-color="#EBC091"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M20 70 C 20 60, 80 60, 80 70 L 85 100 L 15 100 Z" fill="#8e44ad" stroke="#732d91" stroke-width="1"/>
+                    <rect x="44" y="62" width="12" height="12" fill="url(#skinLaraib)"/>
+                    <circle cx="50" cy="45" r="20" fill="url(#skinLaraib)" stroke="#C8966A" stroke-width="1"/>
+                    <path d="M28 35 C 20 50, 20 75, 35 90 L 65 90 C 80 75, 80 50, 72 35 C 65 25, 35 25, 28 35 Z" fill="#9b59b6" stroke="#fff" stroke-width="1"/>
+                    <rect x="36" y="40" width="12" height="8" rx="2" fill="none" stroke="#333" stroke-width="1.2"/>
+                    <rect x="52" y="40" width="12" height="8" rx="2" fill="none" stroke="#333" stroke-width="1.2"/>
+                    <path d="M48 44 L 52 44" stroke="#333" stroke-width="1.2"/>
+                    <path d="M45 57 L 55 57" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M39 42 L 44 46 M 44 42 L 39 46 M 56 42 L 61 46 M 61 42 L 56 46" stroke="#333" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="info">
+                <span class="role-tag">Cousin / Victim 1</span>
+                <div class="name">Laraib</div>
+                <p class="dialogue" id="speech-laraib">"Ahad aur Basit, tum dono bas baatein hi bana sakte ho. Mera response sun liya na tou 3D se seedha 2D mein crash ho jao ge!"</p>
             </div>
         </div>
 
-        <!-- SANA -->
-        <div class="card girl">
-            <div class="avatar">💅</div>
-            <h2>SANA</h2>
-            <div class="role">Victim #2 (Roasted)</div>
-            <div class="roast-box">
-                "Google par search karti hai: 'Chaye garam kyun hoti hai?'"
+        <!-- === SANA === -->
+        <div class="card target" data-tilt onclick="speakRoast('sana')">
+            <div class="avatar-container">
+                <svg class="avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="skinSana" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#F7E0C1"/>
+                            <stop offset="100%" stop-color="#EFCCAC"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M20 70 C 20 60, 80 60, 80 70 L 85 100 L 15 100 Z" fill="#e67e22" stroke="#d35400" stroke-width="1"/>
+                    <rect x="44" y="62" width="12" height="12" fill="url(#skinSana)"/>
+                    <circle cx="50" cy="45" r="20" fill="url(#skinSana)" stroke="#D6A681" stroke-width="1"/>
+                    <circle cx="50" cy="22" r="8" fill="#111"/>
+                    <path d="M30 38 C 30 20, 70 20, 70 38 L 73 40 L 27 40 Z" fill="#111"/>
+                    <path d="M25 65 C 15 75, 15 95, 25 105" fill="none" stroke="#f39c12" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="41" cy="45" r="4" fill="none" stroke="#111" stroke-width="1"/><circle cx="41" cy="45" r="1.5" fill="#111"/>
+                    <circle cx="59" cy="45" r="4" fill="none" stroke="#111" stroke-width="1"/><circle cx="59" cy="45" r="1.5" fill="#111"/>
+                    <circle cx="50" cy="56" r="4" fill="none" stroke="#111" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="info">
+                <span class="role-tag">Cousin / Victim 2</span>
+                <div class="name">Sana</div>
+                <p class="dialogue" id="speech-sana">"Basit bhai, itna overacting mat karo. Tumhari roasting se zyada achi meri subah ki chai hoti hai. Hamein kya harao ge!"</p>
             </div>
         </div>
+
     </div>
 
-    <!-- Interactive Roast Section -->
-    <div class="roast-arena">
-        <h2 class="arena-title">⚡ Ahad & Basit Ka Naya Attack ⚡</h2>
-        <div class="roast-display" id="roastText">
-            Neeche button dabao aur dekho Ahad aur Basit aj Laraib aur Sana ko kya bol rahe hain!
-        </div>
-        <button class="btn-3d" onclick="generateRoast()">Naya Roast Maro 🔥</button>
-    </div>
-
-    <footer>
-        <p>Cousin Core &copy; 2026 - Just for Fun & Entertainment!</p>
-    </footer>
-
+    <!-- VanillaTilt.js (3D Effect) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script>
-        const roasts = [
-            "Ahad: Laraib se zyada toh hamare gher ki tube-light fast response deti hai! 😂",
-            "Basit: Sana jab dimaag chalane ki koshish karti hai, pichhe se 'Error 404' ki awaaz aati hai!",
-            "Ahad: Laraib aur Sana ki baatein sun kar Siri ne bhi apna system shutdown kar diya!",
-            "Basit: Ahad bhai, in dono ko bolo thoda kam bola karein, fuzool kharchi waise hi mulk mein zyada hai!",
-            "Ahad: Sana keh rahi thi 'Main bohat deep sochti hoon', pata chala bas so rahi thi!",
-            "Basit: Laraib ko agar selfie filter se hatado toh phone khud lock ho jaye! 😜",
-            "Ahad & Basit: Hum dono ki pairvi koi nahi kar sakta, Laraib aur Sana toh bilkul nahi!"
-        ];
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 20, speed: 500, glare: true, "max-glare": 0.35, scale: 1.05
+        });
 
-        function generateRoast() {
-            const display = document.getElementById('roastText');
-            const randomIndex = Math.floor(Math.random() * roasts.length);
+        // === Text to Speech JavaScript System ===
+        function speakRoast(id) {
+            // Stop any ongoing speech first
+            window.speechSynthesis.cancel();
+
+            // Get text from target paragraph
+            const dialogueText = document.getElementById(`speech-${id}`).innerText;
+            const utterance = new SpeechSynthesisUtterance(dialogueText);
+
+            // Find an Urdu or Hindi voice for proper local pronunciation
+            const voices = window.speechSynthesis.getVoices();
+            const localVoice = voices.find(voice => voice.lang.includes('ur') || voice.lang.includes('hi'));
             
-            // Text animation
-            display.style.opacity = 0;
-            setTimeout(() => {
-                display.innerText = roasts[randomIndex];
-                display.style.opacity = 1;
-            }, 200);
+            if (localVoice) {
+                utterance.voice = localVoice;
+            }
+
+            // Character specific pitch adjustments
+            if (id === 'ahad') {
+                utterance.pitch = 0.9;  // Deep guy voice
+                utterance.rate = 1.0;
+            } else if (id === 'basit') {
+                utterance.pitch = 0.8;  // Deeper voice
+                utterance.rate = 0.95;
+            } else if (id === 'laraib' || id === 'sana') {
+                utterance.pitch = 1.3;  // Higher girl voice
+                utterance.rate = 1.05;
+            }
+
+            // Visual feedback - Highlight card when speaking
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(c => c.classList.remove('speaking'));
+            
+            const activeCard = document.querySelector(`[onclick="speakRoast('${id}')"]`);
+            activeCard.classList.add('speaking');
+
+            // Speak the dialogue
+            window.speechSynthesis.speak(utterance);
+
+            // Remove highlight when done
+            utterance.onend = () => {
+                activeCard.classList.remove('speaking');
+            };
         }
 
-        // 3D Card Effect on Mouse Move
-        document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.card');
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            
-            cards.forEach(card => {
-                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            });
-        });
+        // Pre-load voices on browser load
+        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
     </script>
 </body>
 </html>
