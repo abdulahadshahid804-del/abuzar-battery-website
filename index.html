@@ -1,364 +1,819 @@
-
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cousin Core '26 - The Smash Roast Arena</title>
+    <title>Zain-Store | Premium Mobile Accessories Pakistan</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
-        }
-
         body {
-            background: radial-gradient(circle at center, #1a052e, #05010d);
-            color: #fff;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: flex-start;
-            overflow-x: hidden;
-            perspective: 1200px;
-            padding: 30px 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
 
-        h1 {
-            font-size: 3rem; color: #ff4757;
-            text-shadow: 0 0 20px rgba(255, 71, 87, 0.6);
-            margin-bottom: 5px; transform: translateZ(50px);
-            text-align: center;
+        /* Subtle Light Gradient */
+        .hero-gradient {
+            background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 50%, #fae8ff 100%);
         }
 
-        .tagline {
-            color: #ffa502; font-size: 1.1rem; margin-bottom: 30px; text-align: center;
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Battle Arena Layout */
-        .arena {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1100px;
-            gap: 20px;
-            margin-top: 20px;
-            transform-style: preserve-3d;
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.15);
         }
 
-        /* Team Columns */
-        .team-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            align-items: center;
-            transform-style: preserve-3d;
+        /* Floating effect */
+        .floating {
+            animation: floating 3.5s ease-in-out infinite;
         }
 
-        /* 3D Fighter Card */
-        .fighter-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
-            width: 100%;
-            max-width: 280px;
-            text-align: center;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* Team Colors */
-        .boys .fighter-card { border-color: #2ed573; }
-        .girls .fighter-card { border-color: #ffa502; }
-
-        /* Animation when getting hit */
-        @keyframes hitShake {
-            0% { transform: translateX(0) rotate(0deg); filter: brightness(1.5) sepia(1) hue-rotate(-50deg); }
-            20% { transform: translateX(-15px) rotate(-5deg); }
-            40% { transform: translateX(15px) rotate(5deg); }
-            60% { transform: translateX(-10px) rotate(-3deg); }
-            80% { transform: translateX(10px) rotate(3deg); }
-            100% { transform: translateX(0) rotate(0deg); filter: none; }
+        /* Pulse glow */
+        .glow-effect {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
         }
 
-        .fighter-card.get-hit {
-            animation: hitShake 0.4s ease-in-out;
-            border-color: #ff4757 !important;
-            box-shadow: 0 0 40px #ff4757 !important;
-        }
-
-        .avatar-box {
-            width: 100%; height: 180px;
-            display: flex; justify-content: center; align-items: center;
-            transform: translateZ(30px);
-        }
-
-        .avatar-svg {
-            width: 130px; height: 130px;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.4));
-            transition: transform 0.3s ease;
-        }
-
-        .fighter-card:hover .avatar-svg {
-            transform: scale(1.1) rotate(2deg);
-        }
-
-        .name {
-            font-size: 1.8rem; font-weight: bold; margin: 10px 0;
-            letter-spacing: 1px; text-transform: uppercase;
-        }
-
-        /* Health Bar / Roast Meter for Girls */
-        .hp-container {
-            width: 100%; background: #222; height: 12px;
-            border-radius: 6px; overflow: hidden; margin-top: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .hp-bar {
-            width: 100%; height: 100%; background: linear-gradient(90deg, #ffa502, #ff4757);
-            transition: width 0.3s ease;
-        }
-
-        .hp-text {
-            font-size: 0.8rem; color: #a4b0be; margin-top: 4px;
-        }
-
-        /* Attack Controls for Boys */
-        .attack-btn {
-            background: linear-gradient(135deg, #2ed573, #1e90ff);
-            color: white; border: none; padding: 10px 18px;
-            font-weight: bold; border-radius: 12px; cursor: pointer;
-            margin-top: 12px; width: 100%;
-            transform: translateZ(20px); transition: all 0.2s;
-            box-shadow: 0 5px 15px rgba(46, 213, 115, 0.4);
-        }
-
-        .attack-btn:hover {
-            transform: translateZ(25px) scale(1.05);
-            filter: brightness(1.2);
-        }
-
-        .attack-btn:active {
-            transform: translateZ(10px) scale(0.95);
-        }
-
-        /* Projectile / Flying FX */
-        .projectile {
-            position: fixed; font-size: 2.5rem;
-            z-index: 999; pointer-events: none;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        /* Center Board for Logs */
-        .vs-divider {
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; font-size: 2rem; font-weight: 900;
-            color: #ff4757; text-shadow: 0 0 10px rgba(255,71,87,0.5);
-        }
-
-        .log-box {
-            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px; padding: 15px; width: 220px; max-height: 250px;
-            overflow-y: auto; font-size: 0.85rem; color: #ced6e0;
-            margin-top: 20px; text-align: center; display: flex; flex-direction: column-reverse; gap: 5px;
-        }
-
-        .log-entry {
-            animation: fadeIn 0.3s ease; padding: 4px; border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 768px) {
-            .arena { flex-direction: column; align-items: center; }
-            .vs-divider { margin: 20px 0; }
+        /* Glass header */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
         }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-brand-500 selection:text-white">
 
-    <h1>COUSIN ROAST ARENA '26</h1>
-    <p class="tagline">🔥 Ahad aur Basit ka attack! Larkiyon par funny roasts phenkein!</p>
-
-    <div class="arena">
-        
-        <!-- ================= BOYS SIDE (ATTACKERS) ================= -->
-        <div class="team-column boys">
-            <h2 style="color: #2ed573;">Attackers 👦</h2>
-            
-            <!-- AHAD -->
-            <div class="fighter-card" id="card-ahad">
-                <div class="avatar-box">
-                    <svg class="avatar-svg" viewBox="0 0 100 100">
-                        <circle cx="50" cy="45" r="22" fill="#EAC086"/>
-                        <path d="M20 75 C 20 60, 80 60, 80 75 L 80 100 L 20 100 Z" fill="#333"/>
-                        <path d="M30 35 L 25 18 L 38 28 L 35 12 L 50 25 L 58 10 L 65 25 L 75 15 L 72 35 Z" fill="#111"/>
-                        <circle cx="42" cy="45" r="3" fill="#111"/><circle cx="58" cy="45" r="3" fill="#111"/>
-                        <path d="M45 55 C 50 58, 60 55, 62 52" stroke="#111" stroke-width="2" fill="none"/>
-                    </svg>
-                </div>
-                <div class="name">Ahad</div>
-                <button class="attack-btn" onclick="launchAttack('Ahad', '🍅', 'Laraib')">Laraib par Tamatar Phenko!</button>
-                <button class="attack-btn" style="background:linear-gradient(135deg, #ff4757, #ff6b81)" onclick="launchAttack('Ahad', '💥', 'Sana')">Sana ko Roast Karo!</button>
-            </div>
-
-            <!-- BASIT -->
-            <div class="fighter-card" id="card-basit">
-                <div class="avatar-box">
-                    <svg class="avatar-svg" viewBox="0 0 100 100">
-                        <circle cx="50" cy="45" r="22" fill="#E5B581"/>
-                        <path d="M20 75 C 20 60, 80 60, 80 75 L 80 100 L 20 100 Z" fill="#ff4757"/>
-                        <path d="M28 38 C 30 20, 70 20, 72 38 Z" fill="#1a1a1a"/>
-                        <path d="M30 50 C 30 70, 70 70, 70 50 Z" fill="#1a1a1a"/>
-                        <circle cx="41" cy="45" r="6" fill="none" stroke="#fff" stroke-width="1.5"/>
-                        <circle cx="59" cy="45" r="6" fill="none" stroke="#fff" stroke-width="1.5"/>
-                    </svg>
-                </div>
-                <div class="name">Basit</div>
-                <button class="attack-btn" onclick="launchAttack('Basit', '🎈', 'Laraib')">Laraib par Water Balloon!</button>
-                <button class="attack-btn" style="background:linear-gradient(135deg, #ff4757, #ff6b81)" onclick="launchAttack('Basit', '🎤', 'Sana')">Sana par Mic Drop!</button>
-            </div>
-        </div>
-
-        <!-- ================= CENTER BOARD ================= -->
-        <div class="vs-divider">
-            <div>VS</div>
-            <div class="log-box" id="battle-log">
-                <div class="log-entry">Fight Shuru Karein! Click the buttons!</div>
-            </div>
-        </div>
-
-        <!-- ================= GIRLS SIDE (TARGETS) ================= -->
-        <div class="team-column girls">
-            <h2 style="color: #ffa502;">Victims 👧</h2>
-            
-            <!-- LARAIB -->
-            <div class="fighter-card" id="card-laraib">
-                <div class="avatar-box">
-                    <svg class="avatar-svg" viewBox="0 0 100 100">
-                        <circle cx="50" cy="45" r="20" fill="#F3D5AB"/>
-                        <path d="M20 75 C 20 60, 80 60, 80 75 L 80 100 L 20 100 Z" fill="#8e44ad"/>
-                        <path d="M28 35 C 20 50, 20 75, 35 90 L 65 90 C 80 75, 80 50, 72 35 Z" fill="#9b59b6" opacity="0.9"/>
-                        <path d="M43 58 L 57 58" stroke="#333" stroke-width="2"/>
-                    </svg>
-                </div>
-                <div class="name">Laraib</div>
-                <div class="hp-container"><div class="hp-bar" id="hp-laraib"></div></div>
-                <div class="hp-text">Attitude Level: <span id="hp-txt-laraib">100</span>%</div>
-            </div>
-
-            <!-- SANA -->
-            <div class="fighter-card" id="card-sana">
-                <div class="avatar-box">
-                    <svg class="avatar-svg" viewBox="0 0 100 100">
-                        <circle cx="50" cy="45" r="20" fill="#F7E0C1"/>
-                        <path d="M20 75 C 20 60, 80 60, 80 75 L 80 100 L 20 100 Z" fill="#e67e22"/>
-                        <circle cx="50" cy="22" r="7" fill="#111"/>
-                        <path d="M30 38 C 30 20, 70 20, 70 38 Z" fill="#111"/>
-                        <circle cx="50" cy="56" r="3" fill="none" stroke="#111" stroke-width="2"/>
-                    </svg>
-                </div>
-                <div class="name">Sana</div>
-                <div class="hp-container"><div class="hp-bar" id="hp-sana"></div></div>
-                <div class="hp-text">Aesthetic Level: <span id="hp-txt-sana">100</span>%</div>
-            </div>
-        </div>
-
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center space-x-3 border border-slate-700">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+        <span id="toast-message" class="font-medium">Item added to cart!</span>
     </div>
 
-    <script>
-        // Data system for girls health/attitude meter
-        const healthSystem = {
-            Laraib: 100,
-            Sana: 100
-        };
+    <!-- Announcement Bar -->
+    <div class="bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 text-white text-xs md:text-sm font-semibold py-2.5 px-4 text-center tracking-wide shadow-sm flex justify-between items-center">
+        <div class="hidden md:flex items-center space-x-2">
+            <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] uppercase">Lahore Express</span>
+            <span>Same Day Delivery in Lahore</span>
+        </div>
+        <div class="mx-auto md:mx-0">
+            🚀 🇵🇰 Free Cash on Delivery Nationwide | Limited Time Off: Extra 10% OFF on Prepaid Orders
+        </div>
+        <div class="hidden md:flex items-center space-x-3 text-xs">
+            <a href="tel:+923000000000" class="hover:underline"><i class="fa-solid fa-phone mr-1"></i> +92 300 0000000</a>
+        </div>
+    </div>
 
-        // Funny Roast Dialogue Database
-        const funnyRoasts = {
-            Ahad: [
-                "Laraib ka attitude crash ho gaya!",
-                "Ahad ne Sana ke filters ura diye!",
-                "Laraib ka aesthetic mazaq ban gaya!"
-            ],
-            Basit: [
-                "Basit ne Sana ki overacting pakar li!",
-                "Laraib ka 3D nakhra khatam!",
-                "Basit ke mic drop se Sana khamosh!"
-            ]
-        };
+    <!-- Main Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-header border-b border-slate-200/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Brand Header -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-bolt text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-black tracking-tight text-slate-900 leading-none">
+                            ZAIN<span class="text-brand-600">-STORE</span>
+                        </div>
+                        <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase block mt-1">Official Mobile Tech</span>
+                    </div>
+                </a>
 
-        function launchAttack(attacker, weapon, target) {
-            // Get positions for 3D animation trajectory
-            const attackerCard = document.getElementById(`card-${attacker.toLowerCase()}`);
-            const targetCard = document.getElementById(`card-${target.toLowerCase()}`);
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center space-x-8 font-semibold text-slate-700">
+                    <a href="#home" class="text-brand-600 hover:text-brand-600 transition">Home</a>
+                    <a href="#categories" class="hover:text-brand-600 transition">Categories</a>
+                    <a href="#products" class="hover:text-brand-600 transition">Airbuds</a>
+                    <a href="#products" class="hover:text-brand-600 transition">Chargers</a>
+                    <a href="#products" class="hover:text-brand-600 transition">Handsfree</a>
+                    <a href="#reviews" class="hover:text-brand-600 transition">Reviews</a>
+                </nav>
+
+                <!-- Search & Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search Input -->
+                    <div class="hidden sm:flex items-center bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 focus-within:border-brand-500 focus-within:bg-white transition">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2"></i>
+                        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search Airbuds, Charger..." class="bg-transparent text-sm text-slate-800 placeholder-slate-400 outline-none w-36 lg:w-48">
+                    </div>
+
+                    <!-- Cart Trigger -->
+                    <button onclick="toggleCart()" class="relative bg-slate-100 hover:bg-brand-50 text-slate-800 hover:text-brand-600 p-3 rounded-xl border border-slate-200 transition flex items-center justify-center">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-brand-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-800 text-2xl p-2">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
+            <a href="#home" class="block font-semibold text-brand-600" onclick="toggleMobileMenu()">Home</a>
+            <a href="#categories" class="block font-semibold text-slate-700" onclick="toggleMobileMenu()">Categories</a>
+            <a href="#products" class="block font-semibold text-slate-700" onclick="toggleMobileMenu()">Products</a>
+            <a href="#reviews" class="block font-semibold text-slate-700" onclick="toggleMobileMenu()">Reviews</a>
+            <div class="pt-2">
+                <a href="https://wa.me/923000000000" target="_blank" class="w-full bg-emerald-500 text-white font-bold py-3 rounded-xl flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Order on WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section id="home" class="relative hero-gradient py-12 md:py-20 border-b border-slate-200/60 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Hero Banner Content -->
+                <div class="lg:col-span-7 text-center lg:text-left" data-aos="fade-right">
+                    
+                    <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur border border-brand-200 text-brand-700 px-4 py-2 rounded-full text-xs sm:text-sm font-bold shadow-sm mb-6">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>Lahore's #1 Tech & Gadgets Destination</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15] mb-6">
+                        Premium Quality <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600">
+                            Mobile Accessories
+                        </span>
+                    </h1>
+
+                    <p class="text-slate-600 text-base sm:text-lg mb-8 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Experience ultra-fast charging, crystal-clear ANC audio airbuds, high-fidelity handsfree, and long-lasting power banks with guaranteed warranty across Pakistan.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+                        <a href="#products" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-500/30 hover:scale-105 transition-all text-center flex items-center justify-center space-x-2">
+                            <span>Explore Catalog</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="https://wa.me/923000000000" target="_blank" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-emerald-500/20 hover:scale-105 transition-all text-center flex items-center justify-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span>Instant WhatsApp Order</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Stats Bar -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <div class="text-xl sm:text-2xl font-black text-slate-900">100%</div>
+                            <div class="text-xs text-slate-500 font-medium">Original Products</div>
+                        </div>
+                        <div>
+                            <div class="text-xl sm:text-2xl font-black text-slate-900">24 Hours</div>
+                            <div class="text-xs text-slate-500 font-medium">Lahore Express Delivery</div>
+                        </div>
+                        <div>
+                            <div class="text-xl sm:text-2xl font-black text-slate-900">15,000+</div>
+                            <div class="text-xs text-slate-500 font-medium">Happy Pakistani Buyers</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Hero Promotional Banner Image -->
+                <div class="lg:col-span-5 relative flex justify-center" data-aos="fade-left">
+                    <!-- Glow background -->
+                    <div class="absolute w-80 h-80 bg-brand-400/20 rounded-full blur-3xl -z-10"></div>
+                    
+                    <div class="relative w-full max-w-md">
+                        <!-- Main Product Banner Card -->
+                        <div class="bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-100 floating">
+                            <div class="relative rounded-2xl overflow-hidden bg-slate-100 mb-4">
+                                <span class="absolute top-3 left-3 z-10 bg-gradient-to-r from-amber-500 to-red-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase shadow">
+                                    Flash Sale 40% OFF
+                                </span>
+                                <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=700&auto=format&fit=crop" 
+                                     alt="Top Airbuds" class="w-full h-72 sm:h-80 object-cover rounded-2xl hover:scale-105 transition duration-500">
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-bold text-slate-900 text-lg">Zain ANC Pro Airbuds</h3>
+                                    <p class="text-xs text-slate-500">Dual Mic | Active Noise Cancellation</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xl font-black text-brand-600">Rs. 3,899</div>
+                                    <div class="text-xs text-slate-400 line-through">Rs. 5,999</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 1 -->
+                        <div class="absolute -bottom-5 -left-5 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 hidden sm:flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-slate-800">Cash on Delivery</div>
+                                <div class="text-[10px] text-slate-500">Pay when you receive</div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 2 -->
+                        <div class="absolute -top-5 -right-5 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 hidden sm:flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-slate-800">7 Days Warranty</div>
+                                <div class="text-[10px] text-slate-500">Easy replacement</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Banner Section -->
+    <section id="categories" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-widest bg-brand-50 px-3 py-1 rounded-full">Top Collections</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Shop by Category</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                
+                <!-- Category 1 -->
+                <div onclick="filterCategory('airbuds')" class="group cursor-pointer bg-slate-50 hover:bg-brand-50 p-6 rounded-3xl border border-slate-200/80 hover:border-brand-300 card-hover text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 mx-auto bg-brand-100 group-hover:bg-brand-600 text-brand-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition duration-300 mb-4 shadow-sm">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg">Airbuds</h3>
+                    <p class="text-xs text-slate-500 mt-1">TWS & Bluetooth</p>
+                </div>
+
+                <!-- Category 2 -->
+                <div onclick="filterCategory('charger')" class="group cursor-pointer bg-slate-50 hover:bg-purple-50 p-6 rounded-3xl border border-slate-200/80 hover:border-purple-300 card-hover text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mx-auto bg-purple-100 group-hover:bg-purple-600 text-purple-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition duration-300 mb-4 shadow-sm">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg">Chargers</h3>
+                    <p class="text-xs text-slate-500 mt-1">Fast Adapters & Cables</p>
+                </div>
+
+                <!-- Category 3 -->
+                <div onclick="filterCategory('handsfree')" class="group cursor-pointer bg-slate-50 hover:bg-pink-50 p-6 rounded-3xl border border-slate-200/80 hover:border-pink-300 card-hover text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 mx-auto bg-pink-100 group-hover:bg-pink-600 text-pink-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition duration-300 mb-4 shadow-sm">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg">Handsfree</h3>
+                    <p class="text-xs text-slate-500 mt-1">Wired & High Bass</p>
+                </div>
+
+                <!-- Category 4 -->
+                <div onclick="filterCategory('accessories')" class="group cursor-pointer bg-slate-50 hover:bg-emerald-50 p-6 rounded-3xl border border-slate-200/80 hover:border-emerald-300 card-hover text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 mx-auto bg-emerald-100 group-hover:bg-emerald-600 text-emerald-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition duration-300 mb-4 shadow-sm">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg">Accessories</h3>
+                    <p class="text-xs text-slate-500 mt-1">Power Banks & Covers</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Listing Section -->
+    <section id="products" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            const startRect = attackerCard.getBoundingClientRect();
-            const endRect = targetCard.getBoundingClientRect();
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <span class="text-brand-600 font-bold text-xs uppercase tracking-widest bg-brand-100 px-3 py-1 rounded-full">Featured Catalog</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">All Products</h2>
+                </div>
 
-            // Create flying emoji element
-            const proj = document.createElement('div');
-            proj.className = 'projectile';
-            proj.innerText = weapon;
-            proj.style.left = `${startRect.left + startRect.width/2}px`;
-            proj.style.top = `${startRect.top + startRect.height/2}px`;
-            document.body.appendChild(proj);
+                <!-- Filter Tabs -->
+                <div class="flex items-center space-x-2 overflow-x-auto py-2 mt-4 md:mt-0">
+                    <button onclick="filterCategory('all')" class="cat-btn active bg-brand-600 text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl transition whitespace-nowrap">All Items</button>
+                    <button onclick="filterCategory('airbuds')" class="cat-btn bg-white hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl border border-slate-200 transition whitespace-nowrap">Airbuds</button>
+                    <button onclick="filterCategory('charger')" class="cat-btn bg-white hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl border border-slate-200 transition whitespace-nowrap">Chargers</button>
+                    <button onclick="filterCategory('handsfree')" class="cat-btn bg-white hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl border border-slate-200 transition whitespace-nowrap">Handsfree</button>
+                    <button onclick="filterCategory('accessories')" class="cat-btn bg-white hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl border border-slate-200 transition whitespace-nowrap">Accessories</button>
+                </div>
+            </div>
 
-            // Animate flying across screen
-            setTimeout(() => {
-                proj.style.transform = `translate(${endRect.left - startRect.left}px, ${endRect.top - startRect.top}px) scale(1.5)`;
-            }, 50);
+            <!-- Dynamic Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Products dynamically rendered by JS -->
+            </div>
 
-            // On Impact
-            setTimeout(() => {
-                proj.remove();
+        </div>
+    </section>
+
+    <!-- Promotional Special Banner -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-8 sm:p-12 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
+                    <div>
+                        <span class="bg-brand-500/30 text-brand-300 border border-brand-400/40 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            Lahore Special Combo Offer
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold mt-4 mb-4 leading-tight">
+                            Fast Charger + ANC Airbuds + Braided Cable Package
+                        </h2>
+                        <p class="text-slate-300 mb-6 text-sm sm:text-base">
+                            Get our ultimate gadget bundle with flat 35% discount and guaranteed free delivery to your doorstep anywhere in Pakistan!
+                        </p>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <span class="text-3xl font-black text-amber-400">Rs. 4,999</span>
+                            <span class="text-slate-500 line-through text-lg">Rs. 7,800</span>
+                        </div>
+                        <button onclick="addToCart(99, 'Lahore Special Ultimate Combo', 4999, 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=500&auto=format&fit=crop')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-brand-500/40">
+                            Claim Deal Now
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=600&auto=format&fit=crop" alt="Gadget Combo" class="rounded-2xl shadow-2xl border border-slate-700 max-h-72 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 bg-slate-50 border-t border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-widest bg-brand-100 px-3 py-1 rounded-full">Testimonials</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">What Our Customers Say</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
-                // Add shake effect to targeted girl card
-                targetCard.classList.add('get-hit');
-                setTimeout(() => targetCard.classList.remove('get-hit'), 400);
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center space-x-1 text-amber-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">"Main ne Lahore Gulberg ma Airbuds order kiye thy subah, sham tk mil gaye. Battery timing or sound quality boht zbrdst ha!"</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-100 font-bold text-brand-600 flex items-center justify-center">AH</div>
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">Ali Hassan</div>
+                            <div class="text-xs text-slate-400">Lahore, Pakistan</div>
+                        </div>
+                    </div>
+                </div>
 
-                // Reduce health/points
-                healthSystem[target] = Math.max(0, healthSystem[target] - 15);
-                document.getElementById(`hp-${target.toLowerCase()}`).style.width = `${healthSystem[target]}%`;
-                document.getElementById(`hp-txt-${target.toLowerCase()}`).innerText = healthSystem[target];
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center space-x-1 text-amber-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">"65W Charger boht fast ha, mera phone 30 mins ma full charge kr deta ha. Original packing ma aaya tha, highly recommended!"</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 font-bold text-purple-600 flex items-center justify-center">US</div>
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">Usman Sheikh</div>
+                            <div class="text-xs text-slate-400">Karachi, Pakistan</div>
+                        </div>
+                    </div>
+                </div>
 
-                // Add to Battle log screen
-                const logBox = document.getElementById('battle-log');
-                const randomLines = funnyRoasts[attacker];
-                const line = randomLines[Math.floor(Math.random() * randomLines.length)];
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center space-x-1 text-amber-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">"Zain-Store ki service boht achi ha, WhatsApp customer support b fast ha. Quality 10/10."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 font-bold text-emerald-600 flex items-center justify-center">ZA</div>
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">Zainab Ahmad</div>
+                            <div class="text-xs text-slate-400">Islamabad, Pakistan</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="text-2xl font-black text-white mb-4">ZAIN<span class="text-brand-500">-STORE</span></div>
+                <p class="text-sm leading-relaxed mb-4">Pakistan's premier destination for original, high-performance mobile accessories and tech gadgets.</p>
+                <div class="flex space-x-3 text-lg">
+                    <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 hover:text-white rounded-xl flex items-center justify-center transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 hover:text-white rounded-xl flex items-center justify-center transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/923000000000" class="w-9 h-9 bg-slate-800 hover:bg-emerald-600 hover:text-white rounded-xl flex items-center justify-center transition"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#products" class="hover:text-white transition">TWS Airbuds</a></li>
+                    <li><a href="#products" class="hover:text-white transition">Fast Chargers</a></li>
+                    <li><a href="#products" class="hover:text-white transition">Handsfree & Audio</a></li>
+                    <li><a href="#products" class="hover:text-white transition">Power Banks & Cables</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-4">Customer Care</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition">Shipping Policy (Pakistan)</a></li>
+                    <li><a href="#" class="hover:text-white transition">7-Day Return & Replacement</a></li>
+                    <li><a href="#" class="hover:text-white transition">Track Your Parcel</a></li>
+                    <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-4">Store Location</h4>
+                <div class="text-sm space-y-2">
+                    <p><i class="fa-solid fa-location-dot text-brand-500 mr-2"></i> Main Boulevard, Gulberg III, Lahore, Pakistan</p>
+                    <p><i class="fa-solid fa-phone text-brand-500 mr-2"></i> +92 300 0000000</p>
+                    <p><i class="fa-solid fa-envelope text-brand-500 mr-2"></i> support@zainstore.pk</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
+            &copy; 2026 Zain-Store Lahore. All Rights Reserved. Built with Premium Quality Standard.
+        </div>
+    </footer>
+
+    <!-- Slide-over Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+
+        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div class="pointer-events-auto w-screen max-w-md bg-white shadow-2xl flex flex-col">
                 
-                const entry = document.createElement('div');
-                entry.className = 'log-entry';
-                entry.innerHTML = `<strong>${attacker}</strong> ne ${weapon} maara! <br><span style="color:#ffa502">${line}</span>`;
-                logBox.appendChild(entry);
+                <!-- Drawer Header -->
+                <div class="p-6 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-xl font-extrabold text-slate-900 flex items-center">
+                        <i class="fa-solid fa-bag-shopping text-brand-600 mr-3"></i> Your Cart
+                    </h2>
+                    <button onclick="toggleCart()" class="text-slate-400 hover:text-slate-700 p-2 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
 
-                // Speak via Voice system
-                speakLine(`${attacker} ne mara! ${line}`);
+                <!-- Drawer Cart Items -->
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Dynamic Cart Items -->
+                </div>
 
-                // Check if totally roasted
-                if (healthSystem[target] === 0) {
-                    entry.innerHTML += `<br><span style="color:#ff4757; font-weight:bold;">🏆 ${target} mukammal roast ho gayin!</span>`;
-                    healthSystem[target] = 100; // Reset for unlimited fun
-                    setTimeout(() => {
-                        document.getElementById(`hp-${target.toLowerCase()}`).style.width = `100%`;
-                        document.getElementById(`hp-txt-${target.toLowerCase()}`).innerText = 100;
-                    }, 2000);
-                }
+                <!-- Drawer Footer & Checkout -->
+                <div class="p-6 border-t border-slate-200 bg-slate-50 space-y-4">
+                    <div class="flex justify-between text-base font-bold text-slate-900">
+                        <span>Total Amount:</span>
+                        <span id="cart-total" class="text-brand-600">Rs. 0</span>
+                    </div>
+                    <p class="text-xs text-slate-500 text-center">Shipping calculated at checkout. Cash on Delivery available!</p>
+                    
+                    <button onclick="openCheckoutModal()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-brand-500/30 flex items-center justify-center space-x-2">
+                        <span>Proceed to Checkout</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    
+                    <button onclick="sendWhatsAppOrderDirect()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Order via WhatsApp</span>
+                    </button>
+                </div>
 
-            }, 650);
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="min-h-screen px-4 text-center flex items-center justify-center">
+            <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeCheckoutModal()"></div>
+
+            <div class="inline-block w-full max-w-lg p-6 sm:p-8 my-8 text-left transition-all transform bg-white shadow-2xl rounded-3xl relative z-10 border border-slate-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-black text-slate-900">Complete Your Order</h3>
+                    <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <form id="checkout-form" onsubmit="handleOrderSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Full Name</label>
+                        <input type="text" required placeholder="e.g. Ali Ahmed" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Phone Number (WhatsApp)</label>
+                        <input type="tel" required placeholder="e.g. 0300 1234567" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">City</label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 outline-none text-sm">
+                            <option value="Lahore">Lahore (Same Day Express)</option>
+                            <option value="Karachi">Karachi</option>
+                            <option value="Islamabad">Islamabad</option>
+                            <option value="Rawalpindi">Rawalpindi</option>
+                            <option value="Faisalabad">Faisalabad</option>
+                            <option value="Other">Other City (Pakistan)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Delivery Address</label>
+                        <textarea required placeholder="House #, Street, Area name..." rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 outline-none text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Payment Method</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="border border-brand-500 bg-brand-50/50 p-3 rounded-xl flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="payment" checked class="text-brand-600">
+                                <span class="text-xs font-bold text-slate-800">Cash on Delivery</span>
+                            </label>
+                            <label class="border border-slate-200 p-3 rounded-xl flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="payment" class="text-brand-600">
+                                <span class="text-xs font-bold text-slate-800">JazzCash / EasyPaisa</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-brand-500/30 text-base mt-4">
+                        Confirm Order (Cash on Delivery)
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Animations JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Application Logic Script -->
+    <script>
+        // Sample Product Database
+        const products = [
+            { id: 1, name: "Zain Airbuds Pro 2", category: "airbuds", price: 3499, originalPrice: 5000, rating: 4.9, reviews: 128, tag: "Best Seller", image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?q=80&w=500&auto=format&fit=crop" },
+            { id: 2, name: "65W GaN Super Fast Charger", category: "charger", price: 2299, originalPrice: 3200, rating: 5.0, reviews: 94, tag: "Fast Charge", image: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=500&auto=format&fit=crop" },
+            { id: 3, name: "Gaming Bass Wired Handsfree", category: "handsfree", price: 1199, originalPrice: 1800, rating: 4.7, reviews: 62, tag: "Clear Mic", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500&auto=format&fit=crop" },
+            { id: 4, name: "20,000mAh PD Power Bank", category: "accessories", price: 4799, originalPrice: 6500, rating: 4.8, reviews: 88, tag: "20,000 mAh", image: "https://images.unsplash.com/photo-1622445268121-8b1d58d99d3e?q=80&w=500&auto=format&fit=crop" },
+            { id: 5, name: "ENC Wireless Airbuds Neo", category: "airbuds", price: 2899, originalPrice: 4200, rating: 4.6, reviews: 45, tag: "ENC Noise Cancel", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=500&auto=format&fit=crop" },
+            { id: 6, name: "20W Type-C iPhone Adapter", category: "charger", price: 1499, originalPrice: 2200, rating: 4.9, reviews: 110, tag: "iPhone Fast", image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?q=80&w=500&auto=format&fit=crop" },
+            { id: 7, name: "Type-C Braided Heavy Duty Cable", category: "accessories", price: 799, originalPrice: 1200, rating: 4.8, reviews: 75, tag: "Unbreakable", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=500&auto=format&fit=crop" },
+            { id: 8, name: "Studio HD Metallic Handsfree", category: "handsfree", price: 999, originalPrice: 1500, rating: 4.5, reviews: 39, tag: "Extra Bass", image: "https://images.unsplash.com/photo-1545127398-14699f92334b?q=80&w=500&auto=format&fit=crop" }
+        ];
+
+        let cart = [];
+
+        // Initialize App
+        document.addEventListener("DOMContentLoaded", () => {
+            AOS.init({ once: true, duration: 800 });
+            renderProducts(products);
+            updateCartUI();
+        });
+
+        // Render Product Cards
+        function renderProducts(items) {
+            const grid = document.getElementById("product-grid");
+            grid.innerHTML = "";
+
+            if (items.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 font-medium">No accessories found matching your search.</div>`;
+                return;
+            }
+
+            items.forEach((item, index) => {
+                const card = document.createElement("div");
+                card.className = "bg-white rounded-3xl p-4 border border-slate-200/80 card-hover flex flex-col justify-between";
+                card.setAttribute("data-aos", "fade-up");
+                card.setAttribute("data-aos-delay", `${(index % 4) * 100}`);
+
+                card.innerHTML = `
+                    <div>
+                        <div class="relative rounded-2xl overflow-hidden bg-slate-100 mb-4 group">
+                            <span class="absolute top-3 left-3 z-10 bg-brand-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">${item.tag}</span>
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-52 object-cover rounded-2xl group-hover:scale-105 transition duration-500">
+                        </div>
+                        <span class="text-[11px] font-bold text-brand-600 uppercase tracking-widest">${item.category}</span>
+                        <h3 class="font-bold text-slate-900 text-base mt-1 line-clamp-1">${item.name}</h3>
+                        <div class="flex items-center space-x-1 text-amber-400 text-xs my-2">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="font-bold text-slate-800 ml-1">${item.rating}</span>
+                            <span class="text-slate-400">(${item.reviews} reviews)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
+                        <div>
+                            <span class="text-lg font-black text-slate-900">Rs. ${item.price.toLocaleString()}</span>
+                            <span class="text-xs text-slate-400 line-through block">Rs. ${item.originalPrice.toLocaleString()}</span>
+                        </div>
+                        <button onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image}')" class="bg-brand-600 hover:bg-brand-700 text-white p-3 rounded-xl transition shadow-md shadow-brand-500/20 active:scale-95">
+                            <i class="fa-solid fa-cart-plus text-base"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        function speakLine(text) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            const voices = window.speechSynthesis.getVoices();
-            const localVoice = voices.find(v => v.lang.includes('ur') || v.lang.includes('hi'));
-            if (localVoice) utterance.voice = localVoice;
-            utterance.rate = 1.1;
-            window.speechSynthesis.speak(utterance);
+        // Category Filter
+        function filterCategory(cat) {
+            document.querySelectorAll(".cat-btn").forEach(btn => {
+                btn.classList.remove("bg-brand-600", "text-white");
+                btn.classList.add("bg-white", "text-slate-700");
+            });
+            event.target.classList.add("bg-brand-600", "text-white");
+
+            if (cat === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === cat);
+                renderProducts(filtered);
+            }
+        }
+
+        // Live Search
+        function searchProducts() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        // Cart Actions
+        function addToCart(id, name, price, image) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id, name, price, image, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`${name} added to cart!`);
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById("cart-items");
+            const cartCountBadge = document.getElementById("cart-count");
+            const cartTotalContainer = document.getElementById("cart-total");
+
+            let totalQty = 0;
+            let totalPrice = 0;
+
+            cartItemsContainer.innerHTML = "";
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-16 text-slate-400">
+                        <i class="fa-solid fa-basket-shopping text-5xl mb-3 text-slate-300"></i>
+                        <p class="font-medium text-slate-600">Your cart is empty.</p>
+                        <p class="text-xs mt-1">Add some awesome gadgets to get started!</p>
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    totalQty += item.qty;
+                    totalPrice += item.price * item.qty;
+
+                    const div = document.createElement("div");
+                    div.className = "flex items-center justify-between bg-slate-50 p-3 rounded-2xl border border-slate-200/60";
+                    div.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" class="w-14 h-14 object-cover rounded-xl">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm line-clamp-1">${item.name}</h4>
+                                <span class="text-xs font-bold text-brand-600">Rs. ${item.price.toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="changeQty(${item.id}, -1)" class="w-7 h-7 bg-white rounded-lg border text-slate-600 font-bold hover:bg-slate-100">-</button>
+                            <span class="text-xs font-bold text-slate-800">${item.qty}</span>
+                            <button onclick="changeQty(${item.id}, 1)" class="w-7 h-7 bg-white rounded-lg border text-slate-600 font-bold hover:bg-slate-100">+</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(div);
+                });
+            }
+
+            cartCountBadge.innerText = totalQty;
+            cartTotalContainer.innerText = `Rs. ${totalPrice.toLocaleString()}`;
+        }
+
+        function toggleCart() {
+            document.getElementById("cart-drawer").classList.toggle("hidden");
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            document.getElementById("toast-message").innerText = message;
+            toast.classList.remove("translate-y-20", "opacity-0");
+            setTimeout(() => {
+                toast.classList.add("translate-y-20", "opacity-0");
+            }, 2500);
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                showToast("Please add items to cart first!");
+                return;
+            }
+            toggleCart();
+            document.getElementById("checkout-modal").classList.remove("hidden");
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById("checkout-modal").classList.add("hidden");
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            alert("Shukriya! Aapka order receive ho chuka ha. Zain-Store Lahore ki team apse confirmation ke liye rabta karegi.");
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+        }
+
+        function sendWhatsAppOrderDirect() {
+            if (cart.length === 0) {
+                showToast("Cart is empty!");
+                return;
+            }
+            let text = "Hello Zain-Store! I want to order the following items:\n\n";
+            let total = 0;
+            cart.forEach((item, i) => {
+                text += `${i + 1}. ${item.name} x${item.qty} = Rs. ${item.price * item.qty}\n`;
+                total += item.price * item.qty;
+            });
+            text += `\nTotal: Rs. ${total}\nDelivery Location: Lahore / Pakistan\nPlease confirm my order!`;
+            
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/923000000000?text=${encoded}`, '_blank');
         }
     </script>
 </body>
